@@ -1,0 +1,12 @@
+numpy>=1.26
+pandas>=2.2
+pyyaml>=6.0
+matplotlib>=3.8
+gymnasium>=1.0
+stable-baselines3>=2.7
+torch>=2.2
+transformers>=4.45
+accelerate>=1.0
+sentence-transformers>=3.0
+scikit-learn>=1.4
+tqdm>=4.66

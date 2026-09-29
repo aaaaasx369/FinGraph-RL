@@ -160,3 +160,11 @@ ehthumbs.db
 Thumbs.db
 
 TODO
+# Local research environment / outputs
+.venv-drl/
+FinRL-Trading/
+results/
+
+# RAG generated data / embeddings / caches
+rag/data/
+rag/scripts/__pycache__/

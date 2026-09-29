@@ -1,0 +1,99 @@
+seed: 42
+
+data:
+  market_csv: data/market.csv
+  rag_csv: data/rag_signals.csv
+
+  # Leave empty to use every ticker in market.csv.
+  tickers: [AAPL, MSFT, NVDA, AMZN, GOOGL]
+
+  # Chronological split. Change these to your actual experiment.
+  train_start: "2018-01-08"
+  train_end:   "2023-12-29"
+  test_start:  "2024-01-02"
+  test_end:    "2025-10-24"
+
+  # RAG signals are attached by the latest filing available ON OR BEFORE
+  # each trading date. This is deliberately based on filing_date/available_date,
+  # not fiscal period end.
+  rag_available_date_col: "available_date"
+
+features:
+  technical:
+    - ret_1
+    - ret_5
+    - ret_20
+    - vol_20
+    - sma_10_ratio
+    - sma_20_ratio
+    - rsi_14
+    - macd
+    - macd_signal
+  normalize_technical: true
+  normalize_rag_for_state: true
+
+portfolio:
+  initial_cash: 1000000.0
+  transaction_cost_bps: 10.0
+  reward_scale: 100.0
+  include_cash_asset: true
+
+gate:
+  # No intervention when LLM confidence is below this threshold.
+  confidence_threshold: 0.50
+
+  # Soft gate:
+  # g_i = 1 + alpha*C_i*I_i - beta*C_i*R_i
+  alpha_impact: 0.30
+  beta_risk: 0.20
+  multiplier_min: 0.50
+  multiplier_max: 1.50
+
+  # Hard negative veto score:
+  # V_i = C_i * R_i * max(-I_i, 0)
+  veto_threshold: 0.60
+  veto_max_weight: 0.05
+
+  # Keep false by default. Bullish fundamentals do not guarantee short-term gains.
+  positive_floor_enabled: false
+  positive_floor_threshold: 0.75
+  positive_min_weight: 0.02
+
+rl:
+  total_timesteps: 100000
+  learning_rate: 0.0003
+  gamma: 0.99
+  device: "auto"
+
+  ppo:
+    n_steps: 1024
+    batch_size: 256
+    ent_coef: 0.01
+
+  a2c:
+    n_steps: 20
+    ent_coef: 0.01
+
+  ddpg:
+    buffer_size: 200000
+    learning_starts: 5000
+    batch_size: 256
+
+  sac:
+    buffer_size: 200000
+    learning_starts: 5000
+    batch_size: 256
+
+rag_generation:
+  embedding_model: "BAAI/bge-small-en-v1.5"
+  llm_model: "Qwen/Qwen2.5-1.5B-Instruct"
+  top_k: 6
+  chunk_words: 900
+  chunk_overlap_words: 150
+  max_new_tokens: 220
+  max_evidence_chars: 24000
+  queries:
+    - "material changes in business outlook, revenue growth, margins, demand, guidance and competitive position"
+    - "material risks, litigation, regulation, cybersecurity, supply chain, customer concentration and uncertainty"
+    - "liquidity, debt, cash flow, capital expenditures, financing and going concern risks"
+    - "management discussion of future opportunities, deterioration, unusual events and forward-looking risks"
