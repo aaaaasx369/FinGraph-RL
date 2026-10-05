@@ -192,3 +192,40 @@ external/FinDKG-FinRL-Train2020/result/
 **/findkg_finrl_daily*.csv
 **/fourway_finrl_daily*.csv
 **/embeddings*.csv
+
+# ============================================================
+# Local research environments / generated artifacts
+# ============================================================
+.venv*/
+venv/
+env/
+
+results/
+logs/
+
+*.pt
+*.pth
+*.ckpt
+
+*.zip
+*.7z
+*.tar
+*.tar.gz
+
+# SEC-RAG generated data
+rag/data/
+
+# KG / FinDKG generated data
+kg/data/
+external/FinDKG/data/
+external/FinDKG/result/
+external/FinDKG-FinRL-Train2020/data/
+external/FinDKG-FinRL-Train2020/result/
+
+# Generated embeddings / experiment datasets
+**/findkg_finrl_daily*.csv
+**/fourway_finrl_daily*.csv
+**/embeddings*.csv
+
+__pycache__/
+*.pyc

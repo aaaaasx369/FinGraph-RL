@@ -45,6 +45,99 @@ where $\mathcal{S}$ denotes stock selection, $\mathcal{A}$ portfolio allocation,
 
 ---
 
+<!-- FINRLDKG-EXTENSION-START -->
+
+## SEC-RAG + FinDKG Research Extension
+
+This repository extends FinRL-X with:
+
+- **SEC-RAG**: firm-level signals from SEC filings
+- **FinDKG**: temporal relational signals from a dynamic financial knowledge graph
+
+### Portfolio
+
+- AAPL
+- MSFT
+- NVDA
+- AMZN
+- GOOGL
+
+### Four-Way Ablation
+
+| Feature Set | Features per Company |
+|---|---:|
+| BASE | 9 technical |
+| BASE + SEC | 9 technical + 7 SEC = 16 |
+| BASE + FinDKG | 9 technical + 200 FinDKG = 209 |
+| BASE + SEC + FinDKG | 9 technical + 7 SEC + 200 FinDKG = 216 |
+
+### Protocol
+
+- Train: 2018-01-08 to 2020-12-31
+- Held-out test: 2021-01-01 to 2022-12-30
+- Agents: A2C / PPO / DDPG
+- Seeds: 0,1,2,3,4
+- Training steps: 50,000
+
+### FinDKG Pipeline
+
+```text
+Released FinDKG temporal KG
+        |
+        v
+Weekly dynamic graphs
+        |
+        v
+KGTransformer
+        |
+        v
+200-d dynamic entity embeddings
+        |
+        v
+AAPL / MSFT / NVDA / AMZN / GOOGL
+        |
+        v
+Strict backward as-of daily merge
+        |
+        v
+FinRL-X state
+        |
+        v
+A2C / PPO / DDPG
+        |
+        v
+Daily portfolio weights
+```
+
+### Main Results
+
+| Feature Set | Agent | Return | Sharpe | Max Drawdown |
+|---|:---:|---:|---:|---:|
+| BASE | A2C | -18.88% | -0.153 | -49.83% |
+| BASE | PPO | -23.61% | -0.230 | -48.15% |
+| BASE | DDPG | -31.41% | -0.341 | -53.14% |
+| BASE + SEC | A2C | -14.18% | -0.059 | -49.36% |
+| BASE + SEC | PPO | -21.63% | -0.187 | -49.06% |
+| BASE + SEC | DDPG | -34.48% | -0.388 | -55.92% |
+| BASE + FinDKG | A2C | -1.17% | 0.138 | -43.95% |
+| BASE + FinDKG | PPO | -6.20% | 0.094 | -49.12% |
+| BASE + FinDKG | DDPG | -21.86% | -0.189 | -49.82% |
+| BASE + SEC + FinDKG | A2C | +3.81% | 0.221 | -43.62% |
+| BASE + SEC + FinDKG | PPO | -8.42% | 0.038 | -45.48% |
+| BASE + SEC + FinDKG | DDPG | -9.09% | -0.007 | -43.18% |
+
+### Main Finding
+
+FinDKG provides the most consistent incremental improvement in return and Sharpe across the five evaluated seeds.
+
+SEC features alone are more agent-dependent, but become strongly complementary to FinDKG for DDPG.
+
+See:
+
+[`docs/FINDKG_FOURWAY_EXPERIMENT.md`](docs/FINDKG_FOURWAY_EXPERIMENT.md)
+
+<!-- FINRLDKG-EXTENSION-END -->
+
 ## Architecture
 
 <div align="center">
