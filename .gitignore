@@ -168,3 +168,27 @@ results/
 # RAG generated data / embeddings / caches
 rag/data/
 rag/scripts/__pycache__/
+
+# FinDKG / FinRL research artifacts
+.venv*/
+venv*/
+
+results/
+logs/
+
+*.pt
+*.pth
+*.ckpt
+
+*.zip
+*.7z
+*.tar
+*.tar.gz
+
+kg/data/findkg/
+external/FinDKG-FinRL-Train2020/data/
+external/FinDKG-FinRL-Train2020/result/
+
+**/findkg_finrl_daily*.csv
+**/fourway_finrl_daily*.csv
+**/embeddings*.csv
