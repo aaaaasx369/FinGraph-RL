@@ -15,7 +15,9 @@ def main() -> None:
     p.add_argument("--hops", type=int, default=1, choices=[1, 2])
     p.add_argument("--output", help="Write bundle JSON to this file")
     args = p.parse_args()
-    if not args.text or not args.graph:
+    if bool(args.text) != bool(args.graph):
+        p.error("Provide both --text and --graph, or neither for the synthetic demo")
+    if not args.text:
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)
             text_path = root / "texts.jsonl"
@@ -34,8 +36,6 @@ def main() -> None:
             )
             bundle = build(text_path, graph_path, args)
     else:
-        if not args.text or not args.graph:
-            p.error("Provide both --text and --graph")
         bundle = build(args.text, args.graph, args)
     if args.output:
         Path(args.output).write_text(json.dumps(bundle, indent=2, ensure_ascii=False), encoding="utf-8")
