@@ -1,101 +1,23 @@
+from __future__ import annotations
+
+import argparse
 import json
 import re
 from pathlib import Path
+from typing import Dict, List
 
-
-# ============================================================
-# Paths
-# ============================================================
-
-ROOT = Path(__file__).resolve().parents[2]
-
-INPUT_PATH = (
-    ROOT
-    / "rag"
-    / "data"
-    / "raw"
-    / "sec"
-    / "sec_documents.jsonl"
-)
-
-OUTPUT_DIR = (
-    ROOT
-    / "rag"
-    / "data"
-    / "processed"
-    / "sec"
-)
-
-OUTPUT_DIR.mkdir(
-    parents=True,
-    exist_ok=True,
-)
-
-OUTPUT_PATH = (
-    OUTPUT_DIR
-    / "sec_chunks.jsonl"
-)
-
-
-# ============================================================
-# Chunk settings
-#
-# BGE-small has limited input length.
-# 300 words is much safer than the old 900-word chunks.
-# ============================================================
 
 CHUNK_WORDS = 300
 OVERLAP_WORDS = 60
 MIN_CHUNK_WORDS = 60
 
 
-# ============================================================
-# Text cleaning
-# ============================================================
-
-def clean_text(text):
-
-    if not text:
+def clean_text(text: str) -> str:
+    if text is None:
         return ""
 
-    # Remove URLs
-    text = re.sub(
-        r"https?://\S+",
-        " ",
-        text,
-    )
+    text = str(text)
 
-    # Remove obvious remaining XBRL / taxonomy artifacts
-    text = re.sub(
-        r"\b(?:us-gaap|dei|srt|ifrs-full):?[A-Za-z0-9_.\-]*\b",
-        " ",
-        text,
-        flags=re.IGNORECASE,
-    )
-
-    text = re.sub(
-        r"\b(?:fasb|xbrl)\S*",
-        " ",
-        text,
-        flags=re.IGNORECASE,
-    )
-
-    # XBRL duration-like artifacts
-    text = re.sub(
-        r"\bP\d+[YMD]\b",
-        " ",
-        text,
-    )
-
-    # Boolean artifacts
-    text = re.sub(
-        r"\b(?:true|false)\b",
-        " ",
-        text,
-        flags=re.IGNORECASE,
-    )
-
-    # Collapse whitespace
     text = re.sub(
         r"\s+",
         " ",
@@ -105,245 +27,383 @@ def clean_text(text):
     return text.strip()
 
 
-# ============================================================
-# Chunking
-# ============================================================
-
-def chunk_text(text):
+def chunk_words(
+    text: str,
+    chunk_words: int,
+    overlap_words: int,
+    min_chunk_words: int,
+) -> List[str]:
 
     words = text.split()
 
-    if len(words) < MIN_CHUNK_WORDS:
+    if not words:
         return []
 
     chunks = []
+
+    step = max(
+        1,
+        chunk_words - overlap_words,
+    )
 
     start = 0
 
     while start < len(words):
 
         end = min(
-            start + CHUNK_WORDS,
             len(words),
+            start + chunk_words,
         )
 
-        chunk_words = words[start:end]
+        piece = words[start:end]
 
-        if len(chunk_words) >= MIN_CHUNK_WORDS:
-
-            chunk = " ".join(
-                chunk_words
-            )
-
+        if len(piece) >= min_chunk_words:
             chunks.append(
-                chunk
+                " ".join(piece)
             )
 
         if end >= len(words):
             break
 
-        # 60-word overlap
-        start = end - OVERLAP_WORDS
+        start += step
 
     return chunks
 
 
-# ============================================================
-# Load SEC filings
-# ============================================================
+def load_documents(
+    path: Path,
+) -> List[Dict]:
 
-documents = []
+    rows = []
 
-with open(
-    INPUT_PATH,
-    "r",
-    encoding="utf-8",
-) as f:
+    with path.open(
+        "r",
+        encoding="utf-8",
+    ) as f:
 
-    for line in f:
+        for line_no, line in enumerate(
+            f,
+            1,
+        ):
 
-        line = line.strip()
+            if not line.strip():
+                continue
 
-        if not line:
-            continue
+            try:
+                row = json.loads(line)
+                rows.append(row)
 
-        documents.append(
-            json.loads(line)
-        )
+            except Exception as e:
+                print(
+                    f"WARNING line {line_no}: "
+                    f"{type(e).__name__}: {e}"
+                )
 
-
-print("=" * 70)
-print("SEC RAG PREPROCESSING")
-print("=" * 70)
-
-print(
-    "Input filings:",
-    len(documents),
-)
-
-print(
-    "Chunk words:",
-    CHUNK_WORDS,
-)
-
-print(
-    "Overlap words:",
-    OVERLAP_WORDS,
-)
+    return rows
 
 
-# ============================================================
-# Process
-# ============================================================
+def build_chunks(
+    docs: List[Dict],
+) -> List[Dict]:
 
-total_chunks = 0
+    output = []
 
-ticker_counts = {}
-form_counts = {}
+    total_docs = len(docs)
 
+    for doc_idx, doc in enumerate(
+        docs,
+        1,
+    ):
 
-with open(
-    OUTPUT_PATH,
-    "w",
-    encoding="utf-8",
-) as fout:
+        doc_id = str(
+            doc.get(
+                "doc_id",
+                "",
+            )
+        ).strip()
 
-    for doc in documents:
+        ticker = str(
+            doc.get(
+                "ticker",
+                "",
+            )
+        ).strip().upper()
 
-        cleaned = clean_text(
+        published_at = str(
+            doc.get(
+                "published_at",
+                "",
+            )
+        ).strip()
+
+        source_type = str(
+            doc.get(
+                "source_type",
+                "sec_filing",
+            )
+        ).strip()
+
+        source = str(
+            doc.get(
+                "source",
+                "SEC EDGAR",
+            )
+        ).strip()
+
+        form = str(
+            doc.get(
+                "form",
+                "",
+            )
+        ).strip()
+
+        title = str(
+            doc.get(
+                "title",
+                "",
+            )
+        ).strip()
+
+        url = str(
+            doc.get(
+                "url",
+                "",
+            )
+        ).strip()
+
+        text = clean_text(
             doc.get(
                 "text",
                 "",
             )
         )
 
-        chunks = chunk_text(
-            cleaned
-        )
-
-        ticker = doc["ticker"]
-
-        form = doc.get(
-            "form",
-            "UNKNOWN",
-        )
-
-        ticker_counts[ticker] = (
-            ticker_counts.get(
-                ticker,
-                0,
+        if not doc_id:
+            print(
+                f"SKIP doc {doc_idx}: "
+                f"missing doc_id"
             )
-            + len(chunks)
-        )
+            continue
 
-        form_counts[form] = (
-            form_counts.get(
-                form,
-                0,
+        if not ticker:
+            print(
+                f"SKIP {doc_id}: "
+                f"missing ticker"
             )
-            + len(chunks)
+            continue
+
+        if not text:
+            print(
+                f"SKIP {doc_id}: "
+                f"empty text"
+            )
+            continue
+
+        pieces = chunk_words(
+            text=text,
+            chunk_words=CHUNK_WORDS,
+            overlap_words=OVERLAP_WORDS,
+            min_chunk_words=MIN_CHUNK_WORDS,
         )
 
-
-        for idx, chunk in enumerate(
-            chunks
+        for chunk_index, chunk_text in enumerate(
+            pieces
         ):
 
             chunk_id = (
-                f"{doc['doc_id']}"
-                f"_chunk_{idx:04d}"
+                f"{doc_id}_chunk_"
+                f"{chunk_index:04d}"
             )
 
-            record = {
-                "chunk_id": chunk_id,
+            output.append(
+                {
+                    "chunk_id": chunk_id,
+                    "doc_id": doc_id,
+                    "ticker": ticker,
+                    "published_at": published_at,
+                    "source_type": source_type,
+                    "source": source,
+                    "form": form,
+                    "title": title,
+                    "url": url,
+                    "chunk_index": chunk_index,
+                    "text": chunk_text,
+                }
+            )
 
-                "doc_id": doc[
-                    "doc_id"
-                ],
+        if (
+            doc_idx % 50 == 0
+            or doc_idx == total_docs
+        ):
+            print(
+                f"Processed "
+                f"{doc_idx}/{total_docs} docs "
+                f"| chunks={len(output)}"
+            )
 
-                "ticker": ticker,
+    return output
 
-                "published_at": doc[
-                    "published_at"
-                ],
 
-                "source_type": doc[
-                    "source_type"
-                ],
+def save_chunks(
+    path: Path,
+    chunks: List[Dict],
+):
 
-                "source": doc[
-                    "source"
-                ],
+    path.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
-                "form": form,
+    temp_path = path.with_suffix(
+        path.suffix + ".tmp"
+    )
 
-                "title": doc[
-                    "title"
-                ],
+    with temp_path.open(
+        "w",
+        encoding="utf-8",
+    ) as f:
 
-                "url": doc[
-                    "url"
-                ],
+        for row in chunks:
 
-                "chunk_index": idx,
-
-                "text": chunk,
-            }
-
-            fout.write(
+            f.write(
                 json.dumps(
-                    record,
+                    row,
                     ensure_ascii=False,
                 )
                 + "\n"
             )
 
-            total_chunks += 1
-
-
-# ============================================================
-# Summary
-# ============================================================
-
-print(
-    "\nTotal chunks:",
-    total_chunks,
-)
-
-print(
-    "\nChunks by ticker:"
-)
-
-for ticker in sorted(
-    ticker_counts
-):
-    print(
-        ticker,
-        ticker_counts[ticker],
+    temp_path.replace(
+        path
     )
 
 
-print(
-    "\nChunks by form:"
-)
+def main():
 
-for form in sorted(
-    form_counts
-):
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--input",
+        default=(
+            "rag/data/raw/sec/"
+            "sec_documents.jsonl"
+        ),
+    )
+
+    parser.add_argument(
+        "--output",
+        default=(
+            "rag/data/processed/sec/"
+            "sec_chunks.jsonl"
+        ),
+    )
+
+    args = parser.parse_args()
+
+    input_path = Path(
+        args.input
+    )
+
+    output_path = Path(
+        args.output
+    )
+
+    print("=" * 70)
+    print("SEC PROCESSOR")
+    print("=" * 70)
+
     print(
-        form,
-        form_counts[form],
+        "Input:",
+        input_path,
+    )
+
+    print(
+        "Output:",
+        output_path,
+    )
+
+    print(
+        "CHUNK_WORDS:",
+        CHUNK_WORDS,
+    )
+
+    print(
+        "OVERLAP_WORDS:",
+        OVERLAP_WORDS,
+    )
+
+    print(
+        "MIN_CHUNK_WORDS:",
+        MIN_CHUNK_WORDS,
+    )
+
+    docs = load_documents(
+        input_path
+    )
+
+    print()
+    print(
+        "Documents loaded:",
+        len(docs),
+    )
+
+    if not docs:
+        raise ValueError(
+            "No SEC documents found."
+        )
+
+    dates = sorted(
+        {
+            str(
+                x.get(
+                    "published_at",
+                    "",
+                )
+            )
+            for x in docs
+            if x.get(
+                "published_at"
+            )
+        }
+    )
+
+    if dates:
+        print(
+            "Raw date range:",
+            dates[0],
+            "->",
+            dates[-1],
+        )
+
+    chunks = build_chunks(
+        docs
+    )
+
+    save_chunks(
+        output_path,
+        chunks,
+    )
+
+    print()
+    print("=" * 70)
+    print("COMPLETE")
+    print("=" * 70)
+
+    print(
+        "Documents:",
+        len(docs),
+    )
+
+    print(
+        "Chunks:",
+        len(chunks),
+    )
+
+    print(
+        "Saved:",
+        output_path,
     )
 
 
-print(
-    "\nSaved:"
-)
-
-print(
-    OUTPUT_PATH
-)
-
-print(
-    "\nDONE"
-)
+if __name__ == "__main__":
+    main()

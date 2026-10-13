@@ -1,0 +1,55 @@
+{
+  "DISCLOSES": [
+    ["ORG", "FIN_METRIC"],
+    ["ORG", "FIN_INST"],
+    ["ORG", "ACCOUNTING_POLICY"],
+    ["ORG", "RISK_FACTOR"]
+  ],
+
+  "SUBJECT_TO": [
+    ["ORG", "REGULATORY_REQUIREMENT"],
+    ["ORG", "ACCOUNTING_POLICY"],
+    ["ORG", "RISK_FACTOR"]
+  ],
+
+  "PRODUCE": [
+    ["ORG", "PRODUCT"],
+    ["SEGMENT", "PRODUCT"],
+    ["ORG", "SERVICE"]
+  ],
+
+  "COMPETES_WITH": [
+    ["ORG", "COMP"],
+    ["PRODUCT", "COMP"]
+  ],
+
+  "PARTNERS_WITH": [
+    ["ORG", "COMP"],
+    ["ORG", "ORG"]
+  ],
+
+  "OPERATES_IN": [
+    ["ORG", "GPE"],
+    ["ORG", "SECTOR"],
+    ["ORG", "SEGMENT"]
+  ],
+
+  "HAS_STAKE_IN": [
+    ["ORG", "SEGMENT"],
+    ["ORG", "FIN_INST"],
+    ["ORG", "COMP"]
+  ],
+
+  "DEPENDS_ON": [
+    ["ORG", "COMP"],
+    ["ORG", "LOGISTICS"],
+    ["ORG", "FIN_METRIC"],
+    ["ORG", "PRODUCT"],
+    ["ORG", "CONCEPT"],
+    ["ORG", "FIN_INST"],
+    ["ORG", "RISK_FACTOR"],
+    ["ORG", "RAW_MATERIAL"],
+    ["ORG", "MACRO_CONDITION"],
+    ["ORG", "REGULATORY_REQUIREMENT"]
+  ]
+}

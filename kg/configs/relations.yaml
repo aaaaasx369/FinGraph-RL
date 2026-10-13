@@ -1,0 +1,5 @@
+relations:
+  - SUPPLIES_TO
+  - CUSTOMER_OF
+  - COMPETES_WITH
+  - SAME_SECTOR

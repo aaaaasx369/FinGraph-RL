@@ -4,19 +4,49 @@ data:
   market_csv: data/market.csv
   rag_csv: data/rag_signals.csv
 
-  # Leave empty to use every ticker in market.csv.
-  tickers: [AAPL, MSFT, NVDA, AMZN, GOOGL]
+  # Leakage-safe FinReflectKG daily features.
+  # This file was produced by:
+  # FinReflectKG triples
+  # -> ticker/year relation features
+  # -> Y-1 temporal alignment
+  # -> daily SEC-RAG merge
+  kg_csv: ../kg/output/sec_rag_plus_finreflectkg.csv
 
-  # Chronological split. Change these to your actual experiment.
+  tickers:
+    - AAPL
+    - MSFT
+    - NVDA
+    - AMZN
+    - GOOGL
+
+  # ==========================================================
+  # FinReflectKG v1 experiment split
+  #
+  # Current KG dataset:
+  #   2018-2023 source years
+  #
+  # Temporal alignment:
+  #   trading year Y uses KG from Y-1
+  #
+  # Therefore:
+  #   2019 -> 2018 KG
+  #   ...
+  #   2023 -> 2022 KG
+  #
+  # 2018 has no prior-year KG in the current subset and is
+  # represented by a neutral zero KG vector + kg_available=0.
+  # ==========================================================
+
   train_start: "2018-01-08"
-  train_end:   "2023-12-29"
-  test_start:  "2024-01-02"
-  test_end:    "2025-10-24"
+  train_end:   "2022-12-30"
 
-  # RAG signals are attached by the latest filing available ON OR BEFORE
-  # each trading date. This is deliberately based on filing_date/available_date,
-  # not fiscal period end.
+  test_start:  "2023-01-03"
+  test_end:    "2023-12-29"
+
+  # SEC-RAG is attached using only information available
+  # on or before each trading date.
   rag_available_date_col: "available_date"
+
 
 features:
   technical:
@@ -29,8 +59,14 @@ features:
     - rsi_14
     - macd
     - macd_signal
+
   normalize_technical: true
   normalize_rag_for_state: true
+
+  # New FinReflectKG state normalization.
+  # Scaler is fit only on the training period.
+  normalize_kg_for_state: true
+
 
 portfolio:
   initial_cash: 1000000.0
@@ -38,26 +74,28 @@ portfolio:
   reward_scale: 100.0
   include_cash_asset: true
 
+
 gate:
-  # No intervention when LLM confidence is below this threshold.
+  # No intervention when SEC-RAG confidence is below threshold.
   confidence_threshold: 0.50
 
   # Soft gate:
   # g_i = 1 + alpha*C_i*I_i - beta*C_i*R_i
   alpha_impact: 0.30
   beta_risk: 0.20
+
   multiplier_min: 0.50
   multiplier_max: 1.50
 
-  # Hard negative veto score:
+  # Hard negative veto:
   # V_i = C_i * R_i * max(-I_i, 0)
   veto_threshold: 0.60
   veto_max_weight: 0.05
 
-  # Keep false by default. Bullish fundamentals do not guarantee short-term gains.
   positive_floor_enabled: false
   positive_floor_threshold: 0.75
   positive_min_weight: 0.02
+
 
 rl:
   total_timesteps: 100000
@@ -84,14 +122,18 @@ rl:
     learning_starts: 5000
     batch_size: 256
 
+
 rag_generation:
   embedding_model: "BAAI/bge-small-en-v1.5"
   llm_model: "Qwen/Qwen2.5-1.5B-Instruct"
+
   top_k: 6
   chunk_words: 900
   chunk_overlap_words: 150
+
   max_new_tokens: 220
   max_evidence_chars: 24000
+
   queries:
     - "material changes in business outlook, revenue growth, margins, demand, guidance and competitive position"
     - "material risks, litigation, regulation, cybersecurity, supply chain, customer concentration and uncertainty"

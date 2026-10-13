@@ -1,0 +1,2353 @@
+{
+  "entity_types": [
+    "ACCOUNTING_POLICY",
+    "ACTION",
+    "ANTITRUST INVESTIGATION",
+    "ANTITRUST LAWSUIT",
+    "ASSET",
+    "BUSINESS_OPERATION",
+    "COMMENTARY",
+    "COMP",
+    "CONCEPT",
+    "CONTRACT",
+    "DATE",
+    "ECON_IND",
+    "ESG_TOPIC",
+    "EVENT",
+    "FIN_ASSET",
+    "FIN_INST",
+    "FIN_INSTRUMENT",
+    "FIN_MARKET",
+    "FIN_METRIC",
+    "FIN_POLICY",
+    "FIN_REPORTING_DOC",
+    "GPE",
+    "INFRASTRUCTURE",
+    "LEGAL_DOCUMENT",
+    "LITIGATION",
+    "LOGISTICS",
+    "MACRO_CONDITION",
+    "NET INCOME",
+    "ORG",
+    "ORG_GOV",
+    "ORG_REG",
+    "PERSON",
+    "POLICY",
+    "POSITION",
+    "PRODUCT",
+    "PROPERTY",
+    "RAW_MATERIAL",
+    "REGULATORY_REQUIREMENT",
+    "RISK_FACTOR",
+    "ROLE",
+    "SECTOR",
+    "SEGMENT",
+    "SERVICE",
+    "YEAR"
+  ],
+  "relations": {
+    "ANNOUNCES": [
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 271,
+        "pct_within_relation": 0.246812
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 165,
+        "pct_within_relation": 0.150273
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 98,
+        "pct_within_relation": 0.089253
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "EVENT",
+        "count": 94,
+        "pct_within_relation": 0.08561
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "ORG",
+        "count": 55,
+        "pct_within_relation": 0.050091
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 52,
+        "pct_within_relation": 0.047359
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 47,
+        "pct_within_relation": 0.042805
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "DATE",
+        "count": 45,
+        "pct_within_relation": 0.040984
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 40,
+        "pct_within_relation": 0.03643
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "COMMENTARY",
+        "count": 33,
+        "pct_within_relation": 0.030055
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 31,
+        "pct_within_relation": 0.028233
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "ROLE",
+        "count": 31,
+        "pct_within_relation": 0.028233
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 27,
+        "pct_within_relation": 0.02459
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "EVENT",
+        "count": 21,
+        "pct_within_relation": 0.019126
+      },
+      {
+        "subject_type": "ORG_REG",
+        "object_type": "LITIGATION",
+        "count": 11,
+        "pct_within_relation": 0.010018
+      },
+      {
+        "subject_type": "ORG_REG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 10,
+        "pct_within_relation": 0.009107
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "CONCEPT",
+        "count": 8,
+        "pct_within_relation": 0.007286
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LITIGATION",
+        "count": 7,
+        "pct_within_relation": 0.006375
+      },
+      {
+        "subject_type": "ORG_REG",
+        "object_type": "EVENT",
+        "count": 7,
+        "pct_within_relation": 0.006375
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "PERSON",
+        "count": 7,
+        "pct_within_relation": 0.006375
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "POSITION",
+        "count": 7,
+        "pct_within_relation": 0.006375
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 6,
+        "pct_within_relation": 0.005464
+      }
+    ],
+    "COMPETES_WITH": [
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 456,
+        "pct_within_relation": 0.846011
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "COMP",
+        "count": 28,
+        "pct_within_relation": 0.051948
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 19,
+        "pct_within_relation": 0.03525
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "COMP",
+        "count": 14,
+        "pct_within_relation": 0.025974
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 8,
+        "pct_within_relation": 0.014842
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "COMP",
+        "count": 5,
+        "pct_within_relation": 0.009276
+      }
+    ],
+    "COMPLIES_WITH": [
+      {
+        "subject_type": "ORG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 433,
+        "pct_within_relation": 0.727731
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 133,
+        "pct_within_relation": 0.223529
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 11,
+        "pct_within_relation": 0.018487
+      }
+    ],
+    "CONTRIBUTES_TO": [
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "FIN_METRIC",
+        "count": 99,
+        "pct_within_relation": 0.798387
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "FIN_METRIC",
+        "count": 18,
+        "pct_within_relation": 0.145161
+      }
+    ],
+    "DECREASE": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 603,
+        "pct_within_relation": 0.778065
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 79,
+        "pct_within_relation": 0.101935
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "FIN_METRIC",
+        "count": 31,
+        "pct_within_relation": 0.04
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "FIN_METRIC",
+        "count": 15,
+        "pct_within_relation": 0.019355
+      },
+      {
+        "subject_type": "FIN_INST",
+        "object_type": "FIN_METRIC",
+        "count": 13,
+        "pct_within_relation": 0.016774
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "YEAR",
+        "count": 5,
+        "pct_within_relation": 0.006452
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "FIN_METRIC",
+        "count": 5,
+        "pct_within_relation": 0.006452
+      }
+    ],
+    "DEPENDS_ON": [
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 579,
+        "pct_within_relation": 0.134745
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LOGISTICS",
+        "count": 557,
+        "pct_within_relation": 0.129625
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 549,
+        "pct_within_relation": 0.127764
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 521,
+        "pct_within_relation": 0.121247
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 452,
+        "pct_within_relation": 0.10519
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 276,
+        "pct_within_relation": 0.064231
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 184,
+        "pct_within_relation": 0.042821
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RAW_MATERIAL",
+        "count": 179,
+        "pct_within_relation": 0.041657
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "MACRO_CONDITION",
+        "count": 175,
+        "pct_within_relation": 0.040726
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 135,
+        "pct_within_relation": 0.031417
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 100,
+        "pct_within_relation": 0.023272
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 89,
+        "pct_within_relation": 0.020712
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 78,
+        "pct_within_relation": 0.018152
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ECON_IND",
+        "count": 74,
+        "pct_within_relation": 0.017221
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "GPE",
+        "count": 64,
+        "pct_within_relation": 0.014894
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "FIN_METRIC",
+        "count": 27,
+        "pct_within_relation": 0.006283
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SECTOR",
+        "count": 26,
+        "pct_within_relation": 0.006051
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 21,
+        "pct_within_relation": 0.004887
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "FIN_METRIC",
+        "count": 20,
+        "pct_within_relation": 0.004654
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_MARKET",
+        "count": 18,
+        "pct_within_relation": 0.004189
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "EVENT",
+        "count": 16,
+        "pct_within_relation": 0.003724
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG",
+        "count": 16,
+        "pct_within_relation": 0.003724
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG_GOV",
+        "count": 16,
+        "pct_within_relation": 0.003724
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LITIGATION",
+        "count": 11,
+        "pct_within_relation": 0.00256
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 10,
+        "pct_within_relation": 0.002327
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG_REG",
+        "count": 6,
+        "pct_within_relation": 0.001396
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "CONCEPT",
+        "count": 5,
+        "pct_within_relation": 0.001164
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONTRACT",
+        "count": 5,
+        "pct_within_relation": 0.001164
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "INFRASTRUCTURE",
+        "count": 5,
+        "pct_within_relation": 0.001164
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PROPERTY",
+        "count": 5,
+        "pct_within_relation": 0.001164
+      }
+    ],
+    "DEVELOPS": [
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 87,
+        "pct_within_relation": 0.75
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 15,
+        "pct_within_relation": 0.12931
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 8,
+        "pct_within_relation": 0.068966
+      }
+    ],
+    "DISCLOSES": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 20712,
+        "pct_within_relation": 0.781408
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 1974,
+        "pct_within_relation": 0.074474
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 1242,
+        "pct_within_relation": 0.046857
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 684,
+        "pct_within_relation": 0.025805
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 352,
+        "pct_within_relation": 0.01328
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 194,
+        "pct_within_relation": 0.007319
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 168,
+        "pct_within_relation": 0.006338
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 106,
+        "pct_within_relation": 0.003999
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LITIGATION",
+        "count": 86,
+        "pct_within_relation": 0.003245
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 76,
+        "pct_within_relation": 0.002867
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 67,
+        "pct_within_relation": 0.002528
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 57,
+        "pct_within_relation": 0.00215
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "FIN_METRIC",
+        "count": 51,
+        "pct_within_relation": 0.001924
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "MACRO_CONDITION",
+        "count": 48,
+        "pct_within_relation": 0.001811
+      },
+      {
+        "subject_type": "FIN_INST",
+        "object_type": "FIN_METRIC",
+        "count": 44,
+        "pct_within_relation": 0.00166
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "EVENT",
+        "count": 44,
+        "pct_within_relation": 0.00166
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "COMMENTARY",
+        "count": 44,
+        "pct_within_relation": 0.00166
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ASSET",
+        "count": 43,
+        "pct_within_relation": 0.001622
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_MARKET",
+        "count": 37,
+        "pct_within_relation": 0.001396
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "FIN_METRIC",
+        "count": 35,
+        "pct_within_relation": 0.00132
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "ORG",
+        "count": 35,
+        "pct_within_relation": 0.00132
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 34,
+        "pct_within_relation": 0.001283
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ECON_IND",
+        "count": 27,
+        "pct_within_relation": 0.001019
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "NET INCOME",
+        "count": 21,
+        "pct_within_relation": 0.000792
+      },
+      {
+        "subject_type": "GPE",
+        "object_type": "FIN_METRIC",
+        "count": 19,
+        "pct_within_relation": 0.000717
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RAW_MATERIAL",
+        "count": 19,
+        "pct_within_relation": 0.000717
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LOGISTICS",
+        "count": 16,
+        "pct_within_relation": 0.000604
+      },
+      {
+        "subject_type": "ORG_REG",
+        "object_type": "COMMENTARY",
+        "count": 15,
+        "pct_within_relation": 0.000566
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_REPORTING_DOC",
+        "count": 14,
+        "pct_within_relation": 0.000528
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG",
+        "count": 14,
+        "pct_within_relation": 0.000528
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_POLICY",
+        "count": 13,
+        "pct_within_relation": 0.00049
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 13,
+        "pct_within_relation": 0.00049
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG_REG",
+        "count": 12,
+        "pct_within_relation": 0.000453
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 10,
+        "pct_within_relation": 0.000377
+      },
+      {
+        "subject_type": "ORG_REG",
+        "object_type": "FIN_METRIC",
+        "count": 9,
+        "pct_within_relation": 0.00034
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "FIN_METRIC",
+        "count": 9,
+        "pct_within_relation": 0.00034
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_ASSET",
+        "count": 8,
+        "pct_within_relation": 0.000302
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "COMMENTARY",
+        "count": 7,
+        "pct_within_relation": 0.000264
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "ORG_REG",
+        "count": 7,
+        "pct_within_relation": 0.000264
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "FIN_INST",
+        "count": 6,
+        "pct_within_relation": 0.000226
+      },
+      {
+        "subject_type": "FIN_MARKET",
+        "object_type": "FIN_METRIC",
+        "count": 5,
+        "pct_within_relation": 0.000189
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LEGAL_DOCUMENT",
+        "count": 5,
+        "pct_within_relation": 0.000189
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "FIN_INST",
+        "count": 5,
+        "pct_within_relation": 0.000189
+      }
+    ],
+    "ESTIMATE": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 65,
+        "pct_within_relation": 0.532787
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 49,
+        "pct_within_relation": 0.401639
+      }
+    ],
+    "FACE": [
+      {
+        "subject_type": "ORG",
+        "object_type": "LITIGATION",
+        "count": 762,
+        "pct_within_relation": 0.432955
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 538,
+        "pct_within_relation": 0.305682
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 210,
+        "pct_within_relation": 0.119318
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG_REG",
+        "count": 42,
+        "pct_within_relation": 0.023864
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 33,
+        "pct_within_relation": 0.01875
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "MACRO_CONDITION",
+        "count": 23,
+        "pct_within_relation": 0.013068
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "COMP",
+        "count": 17,
+        "pct_within_relation": 0.009659
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 11,
+        "pct_within_relation": 0.00625
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "ROLE",
+        "count": 8,
+        "pct_within_relation": 0.004545
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "COMP",
+        "count": 8,
+        "pct_within_relation": 0.004545
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ANTITRUST INVESTIGATION",
+        "count": 7,
+        "pct_within_relation": 0.003977
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ANTITRUST LAWSUIT",
+        "count": 7,
+        "pct_within_relation": 0.003977
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 6,
+        "pct_within_relation": 0.003409
+      },
+      {
+        "subject_type": "ORG_REG",
+        "object_type": "LITIGATION",
+        "count": 5,
+        "pct_within_relation": 0.002841
+      }
+    ],
+    "GUIDES_ON": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 299,
+        "pct_within_relation": 0.465008
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 152,
+        "pct_within_relation": 0.236392
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "MACRO_CONDITION",
+        "count": 82,
+        "pct_within_relation": 0.127527
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 19,
+        "pct_within_relation": 0.029549
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 17,
+        "pct_within_relation": 0.026439
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 16,
+        "pct_within_relation": 0.024883
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACTION",
+        "count": 15,
+        "pct_within_relation": 0.023328
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 14,
+        "pct_within_relation": 0.021773
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 11,
+        "pct_within_relation": 0.017107
+      }
+    ],
+    "HAS_STAKE_IN": [
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 521,
+        "pct_within_relation": 0.404503
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 419,
+        "pct_within_relation": 0.325311
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 62,
+        "pct_within_relation": 0.048137
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "ORG",
+        "count": 54,
+        "pct_within_relation": 0.041925
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 53,
+        "pct_within_relation": 0.041149
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LOGISTICS",
+        "count": 50,
+        "pct_within_relation": 0.03882
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 46,
+        "pct_within_relation": 0.035714
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 16,
+        "pct_within_relation": 0.012422
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 15,
+        "pct_within_relation": 0.011646
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG",
+        "count": 15,
+        "pct_within_relation": 0.011646
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "GPE",
+        "count": 12,
+        "pct_within_relation": 0.009317
+      },
+      {
+        "subject_type": "FIN_INST",
+        "object_type": "ORG",
+        "count": 6,
+        "pct_within_relation": 0.004658
+      }
+    ],
+    "HEDGE": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 44,
+        "pct_within_relation": 0.303448
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 42,
+        "pct_within_relation": 0.289655
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 38,
+        "pct_within_relation": 0.262069
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RAW_MATERIAL",
+        "count": 10,
+        "pct_within_relation": 0.068966
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_MARKET",
+        "count": 5,
+        "pct_within_relation": 0.034483
+      }
+    ],
+    "HOLDS_POSITION": [
+      {
+        "subject_type": "PERSON",
+        "object_type": "PERSON",
+        "count": 54,
+        "pct_within_relation": 0.397059
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "POSITION",
+        "count": 36,
+        "pct_within_relation": 0.264706
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 24,
+        "pct_within_relation": 0.176471
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "CONCEPT",
+        "count": 20,
+        "pct_within_relation": 0.147059
+      }
+    ],
+    "IMPACT": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 174,
+        "pct_within_relation": 0.348
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 52,
+        "pct_within_relation": 0.104
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 43,
+        "pct_within_relation": 0.086
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "MACRO_CONDITION",
+        "count": 31,
+        "pct_within_relation": 0.062
+      },
+      {
+        "subject_type": "ORG_REG",
+        "object_type": "PRODUCT",
+        "count": 17,
+        "pct_within_relation": 0.034
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 14,
+        "pct_within_relation": 0.028
+      },
+      {
+        "subject_type": "MACRO_CONDITION",
+        "object_type": "FIN_METRIC",
+        "count": 11,
+        "pct_within_relation": 0.022
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "FIN_METRIC",
+        "count": 10,
+        "pct_within_relation": 0.02
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 10,
+        "pct_within_relation": 0.02
+      },
+      {
+        "subject_type": "ORG_REG",
+        "object_type": "GPE",
+        "count": 9,
+        "pct_within_relation": 0.018
+      },
+      {
+        "subject_type": "ECON_IND",
+        "object_type": "ECON_IND",
+        "count": 8,
+        "pct_within_relation": 0.016
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "FIN_METRIC",
+        "count": 7,
+        "pct_within_relation": 0.014
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ECON_IND",
+        "count": 6,
+        "pct_within_relation": 0.012
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "CONCEPT",
+        "count": 5,
+        "pct_within_relation": 0.01
+      },
+      {
+        "subject_type": "REGULATORY_REQUIREMENT",
+        "object_type": "FIN_METRIC",
+        "count": 5,
+        "pct_within_relation": 0.01
+      }
+    ],
+    "IMPACTED_BY": [
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 891,
+        "pct_within_relation": 0.359129
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "MACRO_CONDITION",
+        "count": 604,
+        "pct_within_relation": 0.24345
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "EVENT",
+        "count": 419,
+        "pct_within_relation": 0.168884
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 213,
+        "pct_within_relation": 0.085852
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 96,
+        "pct_within_relation": 0.038694
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ECON_IND",
+        "count": 61,
+        "pct_within_relation": 0.024587
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LITIGATION",
+        "count": 28,
+        "pct_within_relation": 0.011286
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 21,
+        "pct_within_relation": 0.008464
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "FIN_METRIC",
+        "count": 13,
+        "pct_within_relation": 0.00524
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "GPE",
+        "count": 11,
+        "pct_within_relation": 0.004434
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LOGISTICS",
+        "count": 10,
+        "pct_within_relation": 0.004031
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 10,
+        "pct_within_relation": 0.004031
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SECTOR",
+        "count": 10,
+        "pct_within_relation": 0.004031
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 9,
+        "pct_within_relation": 0.003628
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 9,
+        "pct_within_relation": 0.003628
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "RISK_FACTOR",
+        "count": 9,
+        "pct_within_relation": 0.003628
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 8,
+        "pct_within_relation": 0.003225
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_MARKET",
+        "count": 7,
+        "pct_within_relation": 0.002821
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "FIN_METRIC",
+        "count": 7,
+        "pct_within_relation": 0.002821
+      }
+    ],
+    "INCREASE": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 1826,
+        "pct_within_relation": 0.833029
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "FIN_METRIC",
+        "count": 94,
+        "pct_within_relation": 0.042883
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 73,
+        "pct_within_relation": 0.033303
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "FIN_METRIC",
+        "count": 62,
+        "pct_within_relation": 0.028285
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "FIN_METRIC",
+        "count": 23,
+        "pct_within_relation": 0.010493
+      },
+      {
+        "subject_type": "FIN_INST",
+        "object_type": "FIN_METRIC",
+        "count": 20,
+        "pct_within_relation": 0.009124
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 13,
+        "pct_within_relation": 0.005931
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 13,
+        "pct_within_relation": 0.005931
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LOGISTICS",
+        "count": 10,
+        "pct_within_relation": 0.004562
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 7,
+        "pct_within_relation": 0.003193
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 7,
+        "pct_within_relation": 0.003193
+      },
+      {
+        "subject_type": "GPE",
+        "object_type": "FIN_METRIC",
+        "count": 5,
+        "pct_within_relation": 0.002281
+      }
+    ],
+    "INTRODUCES": [
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 516,
+        "pct_within_relation": 0.306413
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 499,
+        "pct_within_relation": 0.296318
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 478,
+        "pct_within_relation": 0.283848
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 46,
+        "pct_within_relation": 0.027316
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 30,
+        "pct_within_relation": 0.017815
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INSTRUMENT",
+        "count": 29,
+        "pct_within_relation": 0.017221
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 19,
+        "pct_within_relation": 0.011283
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "POLICY",
+        "count": 10,
+        "pct_within_relation": 0.005938
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_POLICY",
+        "count": 9,
+        "pct_within_relation": 0.005344
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "EVENT",
+        "count": 7,
+        "pct_within_relation": 0.004157
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 6,
+        "pct_within_relation": 0.003563
+      }
+    ],
+    "INVESTS_IN": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 315,
+        "pct_within_relation": 0.279751
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 200,
+        "pct_within_relation": 0.17762
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 131,
+        "pct_within_relation": 0.116341
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 120,
+        "pct_within_relation": 0.106572
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 103,
+        "pct_within_relation": 0.091474
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 89,
+        "pct_within_relation": 0.079041
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 69,
+        "pct_within_relation": 0.061279
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LOGISTICS",
+        "count": 31,
+        "pct_within_relation": 0.027531
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 9,
+        "pct_within_relation": 0.007993
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 7,
+        "pct_within_relation": 0.006217
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RAW_MATERIAL",
+        "count": 7,
+        "pct_within_relation": 0.006217
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 7,
+        "pct_within_relation": 0.006217
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SECTOR",
+        "count": 7,
+        "pct_within_relation": 0.006217
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ASSET",
+        "count": 5,
+        "pct_within_relation": 0.00444
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "GPE",
+        "count": 5,
+        "pct_within_relation": 0.00444
+      }
+    ],
+    "INVOLVED_IN": [
+      {
+        "subject_type": "ORG",
+        "object_type": "EVENT",
+        "count": 106,
+        "pct_within_relation": 0.495327
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 47,
+        "pct_within_relation": 0.219626
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LITIGATION",
+        "count": 30,
+        "pct_within_relation": 0.140187
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "LITIGATION",
+        "count": 8,
+        "pct_within_relation": 0.037383
+      }
+    ],
+    "ISSUE": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 339,
+        "pct_within_relation": 0.936464
+      },
+      {
+        "subject_type": "ORG_REG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 7,
+        "pct_within_relation": 0.019337
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "FIN_INST",
+        "count": 6,
+        "pct_within_relation": 0.016575
+      }
+    ],
+    "MEMBER_OF": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_MARKET",
+        "count": 108,
+        "pct_within_relation": 0.857143
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "ORG",
+        "count": 12,
+        "pct_within_relation": 0.095238
+      }
+    ],
+    "NEGATIVELY_IMPACTS": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 1544,
+        "pct_within_relation": 0.361593
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 1060,
+        "pct_within_relation": 0.248244
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 322,
+        "pct_within_relation": 0.07541
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "MACRO_CONDITION",
+        "count": 291,
+        "pct_within_relation": 0.06815
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 88,
+        "pct_within_relation": 0.020609
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "EVENT",
+        "count": 85,
+        "pct_within_relation": 0.019906
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LOGISTICS",
+        "count": 69,
+        "pct_within_relation": 0.016159
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LITIGATION",
+        "count": 58,
+        "pct_within_relation": 0.013583
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 56,
+        "pct_within_relation": 0.013115
+      },
+      {
+        "subject_type": "RISK_FACTOR",
+        "object_type": "FIN_METRIC",
+        "count": 52,
+        "pct_within_relation": 0.012178
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 50,
+        "pct_within_relation": 0.01171
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ECON_IND",
+        "count": 48,
+        "pct_within_relation": 0.011241
+      },
+      {
+        "subject_type": "MACRO_CONDITION",
+        "object_type": "FIN_METRIC",
+        "count": 45,
+        "pct_within_relation": 0.010539
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "FIN_METRIC",
+        "count": 37,
+        "pct_within_relation": 0.008665
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "FIN_METRIC",
+        "count": 35,
+        "pct_within_relation": 0.008197
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 29,
+        "pct_within_relation": 0.006792
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 24,
+        "pct_within_relation": 0.005621
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 23,
+        "pct_within_relation": 0.005386
+      },
+      {
+        "subject_type": "EVENT",
+        "object_type": "FIN_METRIC",
+        "count": 21,
+        "pct_within_relation": 0.004918
+      },
+      {
+        "subject_type": "ECON_IND",
+        "object_type": "MACRO_CONDITION",
+        "count": 18,
+        "pct_within_relation": 0.004215
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_MARKET",
+        "count": 18,
+        "pct_within_relation": 0.004215
+      },
+      {
+        "subject_type": "ECON_IND",
+        "object_type": "ECON_IND",
+        "count": 17,
+        "pct_within_relation": 0.003981
+      },
+      {
+        "subject_type": "ECON_IND",
+        "object_type": "FIN_METRIC",
+        "count": 16,
+        "pct_within_relation": 0.003747
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RAW_MATERIAL",
+        "count": 16,
+        "pct_within_relation": 0.003747
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "FIN_METRIC",
+        "count": 16,
+        "pct_within_relation": 0.003747
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 15,
+        "pct_within_relation": 0.003513
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 14,
+        "pct_within_relation": 0.003279
+      },
+      {
+        "subject_type": "REGULATORY_REQUIREMENT",
+        "object_type": "FIN_METRIC",
+        "count": 10,
+        "pct_within_relation": 0.002342
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "NET INCOME",
+        "count": 9,
+        "pct_within_relation": 0.002108
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "FIN_METRIC",
+        "count": 8,
+        "pct_within_relation": 0.001874
+      },
+      {
+        "subject_type": "ACCOUNTING_POLICY",
+        "object_type": "FIN_METRIC",
+        "count": 7,
+        "pct_within_relation": 0.001639
+      },
+      {
+        "subject_type": "MACRO_CONDITION",
+        "object_type": "FIN_INST",
+        "count": 6,
+        "pct_within_relation": 0.001405
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "GPE",
+        "count": 6,
+        "pct_within_relation": 0.001405
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 6,
+        "pct_within_relation": 0.001405
+      },
+      {
+        "subject_type": "RISK_FACTOR",
+        "object_type": "ESG_TOPIC",
+        "count": 6,
+        "pct_within_relation": 0.001405
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "CONCEPT",
+        "count": 5,
+        "pct_within_relation": 0.001171
+      },
+      {
+        "subject_type": "CONCEPT",
+        "object_type": "FIN_METRIC",
+        "count": 5,
+        "pct_within_relation": 0.001171
+      },
+      {
+        "subject_type": "FIN_INST",
+        "object_type": "FIN_METRIC",
+        "count": 5,
+        "pct_within_relation": 0.001171
+      },
+      {
+        "subject_type": "LITIGATION",
+        "object_type": "FIN_METRIC",
+        "count": 5,
+        "pct_within_relation": 0.001171
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "BUSINESS_OPERATION",
+        "count": 5,
+        "pct_within_relation": 0.001171
+      },
+      {
+        "subject_type": "RAW_MATERIAL",
+        "object_type": "FIN_METRIC",
+        "count": 5,
+        "pct_within_relation": 0.001171
+      },
+      {
+        "subject_type": "RISK_FACTOR",
+        "object_type": "CONCEPT",
+        "count": 5,
+        "pct_within_relation": 0.001171
+      }
+    ],
+    "OFFER": [
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 251,
+        "pct_within_relation": 0.653646
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 45,
+        "pct_within_relation": 0.117188
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 23,
+        "pct_within_relation": 0.059896
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "POLICY",
+        "count": 10,
+        "pct_within_relation": 0.026042
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SERVICE",
+        "count": 9,
+        "pct_within_relation": 0.023438
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 8,
+        "pct_within_relation": 0.020833
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 7,
+        "pct_within_relation": 0.018229
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "PRODUCT",
+        "count": 6,
+        "pct_within_relation": 0.015625
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "PRODUCT",
+        "count": 5,
+        "pct_within_relation": 0.013021
+      }
+    ],
+    "OPERATES_IN": [
+      {
+        "subject_type": "ORG",
+        "object_type": "GPE",
+        "count": 859,
+        "pct_within_relation": 0.679589
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SECTOR",
+        "count": 190,
+        "pct_within_relation": 0.150316
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 133,
+        "pct_within_relation": 0.105222
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LOGISTICS",
+        "count": 31,
+        "pct_within_relation": 0.024525
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "GPE",
+        "count": 11,
+        "pct_within_relation": 0.008703
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_MARKET",
+        "count": 7,
+        "pct_within_relation": 0.005538
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "SECTOR",
+        "count": 5,
+        "pct_within_relation": 0.003956
+      }
+    ],
+    "PARTNERS_WITH": [
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 478,
+        "pct_within_relation": 0.870674
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG",
+        "count": 24,
+        "pct_within_relation": 0.043716
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 15,
+        "pct_within_relation": 0.027322
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 9,
+        "pct_within_relation": 0.016393
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 6,
+        "pct_within_relation": 0.010929
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 5,
+        "pct_within_relation": 0.009107
+      }
+    ],
+    "POSITIVELY_IMPACTS": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 315,
+        "pct_within_relation": 0.322416
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 172,
+        "pct_within_relation": 0.176049
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 108,
+        "pct_within_relation": 0.110542
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 58,
+        "pct_within_relation": 0.059365
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "MACRO_CONDITION",
+        "count": 56,
+        "pct_within_relation": 0.057318
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "FIN_METRIC",
+        "count": 53,
+        "pct_within_relation": 0.054248
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "FIN_METRIC",
+        "count": 23,
+        "pct_within_relation": 0.023541
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SECTOR",
+        "count": 21,
+        "pct_within_relation": 0.021494
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "FIN_METRIC",
+        "count": 20,
+        "pct_within_relation": 0.020471
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SEGMENT",
+        "count": 16,
+        "pct_within_relation": 0.016377
+      },
+      {
+        "subject_type": "FIN_METRIC",
+        "object_type": "PRODUCT",
+        "count": 10,
+        "pct_within_relation": 0.010235
+      },
+      {
+        "subject_type": "MACRO_CONDITION",
+        "object_type": "FIN_METRIC",
+        "count": 10,
+        "pct_within_relation": 0.010235
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "EVENT",
+        "count": 9,
+        "pct_within_relation": 0.009212
+      },
+      {
+        "subject_type": "ECON_IND",
+        "object_type": "FIN_METRIC",
+        "count": 8,
+        "pct_within_relation": 0.008188
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 7,
+        "pct_within_relation": 0.007165
+      },
+      {
+        "subject_type": "CONCEPT",
+        "object_type": "FIN_METRIC",
+        "count": 6,
+        "pct_within_relation": 0.006141
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ECON_IND",
+        "count": 6,
+        "pct_within_relation": 0.006141
+      },
+      {
+        "subject_type": "RISK_FACTOR",
+        "object_type": "FIN_METRIC",
+        "count": 6,
+        "pct_within_relation": 0.006141
+      },
+      {
+        "subject_type": "GPE",
+        "object_type": "FIN_METRIC",
+        "count": 5,
+        "pct_within_relation": 0.005118
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 5,
+        "pct_within_relation": 0.005118
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 5,
+        "pct_within_relation": 0.005118
+      }
+    ],
+    "PRODUCE": [
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 1188,
+        "pct_within_relation": 0.874172
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "PRODUCT",
+        "count": 90,
+        "pct_within_relation": 0.066225
+      },
+      {
+        "subject_type": "SEGMENT",
+        "object_type": "FIN_METRIC",
+        "count": 43,
+        "pct_within_relation": 0.031641
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "PRODUCT",
+        "count": 14,
+        "pct_within_relation": 0.010302
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SERVICE",
+        "count": 9,
+        "pct_within_relation": 0.006623
+      }
+    ],
+    "PROVIDE": [
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 80,
+        "pct_within_relation": 0.457143
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 21,
+        "pct_within_relation": 0.12
+      },
+      {
+        "subject_type": "PRODUCT",
+        "object_type": "CONCEPT",
+        "count": 16,
+        "pct_within_relation": 0.091429
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 13,
+        "pct_within_relation": 0.074286
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ESG_TOPIC",
+        "count": 11,
+        "pct_within_relation": 0.062857
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "SERVICE",
+        "count": 10,
+        "pct_within_relation": 0.057143
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 9,
+        "pct_within_relation": 0.051429
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 5,
+        "pct_within_relation": 0.028571
+      }
+    ],
+    "RECOGNIZES": [
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 150,
+        "pct_within_relation": 0.882353
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 8,
+        "pct_within_relation": 0.047059
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 8,
+        "pct_within_relation": 0.047059
+      }
+    ],
+    "SERVES_AS": [
+      {
+        "subject_type": "PERSON",
+        "object_type": "POSITION",
+        "count": 115,
+        "pct_within_relation": 0.611702
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "PERSON",
+        "count": 41,
+        "pct_within_relation": 0.218085
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 9,
+        "pct_within_relation": 0.047872
+      },
+      {
+        "subject_type": "PERSON",
+        "object_type": "COMP",
+        "count": 8,
+        "pct_within_relation": 0.042553
+      }
+    ],
+    "SUBJECT_TO": [
+      {
+        "subject_type": "ORG",
+        "object_type": "REGULATORY_REQUIREMENT",
+        "count": 1697,
+        "pct_within_relation": 0.570037
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 699,
+        "pct_within_relation": 0.2348
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RISK_FACTOR",
+        "count": 182,
+        "pct_within_relation": 0.061135
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "MACRO_CONDITION",
+        "count": 80,
+        "pct_within_relation": 0.026873
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LITIGATION",
+        "count": 78,
+        "pct_within_relation": 0.026201
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_METRIC",
+        "count": 70,
+        "pct_within_relation": 0.023514
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG_REG",
+        "count": 44,
+        "pct_within_relation": 0.01478
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 22,
+        "pct_within_relation": 0.00739
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "CONCEPT",
+        "count": 14,
+        "pct_within_relation": 0.004703
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ECON_IND",
+        "count": 12,
+        "pct_within_relation": 0.004031
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_MARKET",
+        "count": 9,
+        "pct_within_relation": 0.003023
+      },
+      {
+        "subject_type": "FIN_INST",
+        "object_type": "FIN_METRIC",
+        "count": 8,
+        "pct_within_relation": 0.002687
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "GPE",
+        "count": 8,
+        "pct_within_relation": 0.002687
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "ORG",
+        "count": 8,
+        "pct_within_relation": 0.002687
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMMENTARY",
+        "count": 7,
+        "pct_within_relation": 0.002351
+      },
+      {
+        "subject_type": "FIN_INST",
+        "object_type": "ACCOUNTING_POLICY",
+        "count": 6,
+        "pct_within_relation": 0.002015
+      }
+    ],
+    "SUPPLY": [
+      {
+        "subject_type": "ORG",
+        "object_type": "PRODUCT",
+        "count": 121,
+        "pct_within_relation": 0.463602
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "COMP",
+        "count": 76,
+        "pct_within_relation": 0.291188
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "LOGISTICS",
+        "count": 14,
+        "pct_within_relation": 0.05364
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "FIN_INST",
+        "count": 8,
+        "pct_within_relation": 0.030651
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "RAW_MATERIAL",
+        "count": 8,
+        "pct_within_relation": 0.030651
+      },
+      {
+        "subject_type": "ORG",
+        "object_type": "PERSON",
+        "count": 7,
+        "pct_within_relation": 0.02682
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "ORG",
+        "count": 5,
+        "pct_within_relation": 0.019157
+      },
+      {
+        "subject_type": "COMP",
+        "object_type": "PRODUCT",
+        "count": 5,
+        "pct_within_relation": 0.019157
+      }
+    ]
+  },
+  "metadata": {
+    "source": "Derived from released FinReflectKG data",
+    "min_signature_count": 5,
+    "note": "Empirical schema derived from frequent FinReflectKG type-relation-type signatures. Not claimed to be the exact original FinReflectKG ontology."
+  }
+}
