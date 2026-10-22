@@ -1,484 +1,698 @@
+# FinGraph-RL
 
-<div align="center">
+### Temporal Financial Knowledge Graphs and Event-Driven LightRAG for Deep Reinforcement Learning Portfolio Optimization
 
-# FinRL-X
+**A research framework integrating Unified Temporal Knowledge Graphs, Event-Driven Retrieval-Augmented Generation, and Deep Reinforcement Learning for evidence-aware portfolio allocation.**
 
-### An AI-Native Modular Infrastructure for Quantitative Trading
-
-<img src="https://github.com/user-attachments/assets/80fe89bb-fb09-4267-b29a-76030512f8cf" width="420">
-
-[![Paper](https://img.shields.io/badge/Paper-arXiv_2603.21330-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2603.21330)
-&nbsp;
-[![PyPI](https://img.shields.io/badge/PyPI-finrl--trading-3775A9?style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/finrl-trading/)
-
-[![Python 3.11](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-![License](https://img.shields.io/github/license/AI4Finance-Foundation/FinRL-Trading.svg?color=brightgreen)
-[![Downloads](https://static.pepy.tech/badge/finrl-trading)](https://pepy.tech/project/finrl-trading)
-[![Downloads](https://static.pepy.tech/badge/finrl-trading/week)](https://pepy.tech/project/finrl-trading)
-[![Join Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/trsr8SXpW5)
-
-![](https://img.shields.io/github/issues-raw/AI4Finance-Foundation/FinRL-Trading?label=Issues)
-![](https://img.shields.io/github/issues-pr-raw/AI4Finance-Foundation/FinRL-Trading?label=PRs)
-![Visitors](https://api.visitorbadge.io/api/VisitorHit?user=AI4Finance-Foundation&repo=FinRL-Trading&countColor=%23B17A)
-
-*A deployment-consistent trading system that unifies data processing, strategy composition, backtesting, and broker execution through a weight-centric interface.*
-
-[Paper](https://arxiv.org/abs/2603.21330) | [Quick Start](#quick-start) | [Strategies](#strategies) | [Results](#results) | [Discord](https://discord.gg/trsr8SXpW5)
-
-</div>
+Built upon [FinRL-X / FinRL-Trading](https://github.com/AI4Finance-Foundation/FinRL-Trading).
 
 ---
 
-## About
+## 1. Overview
 
-**FinRL-X** is a next-generation, **AI-native** quantitative trading infrastructure that redefines how researchers and practitioners build, test, and deploy algorithmic trading strategies. 
+**FinGraph-RL** is a research-oriented extension of FinRL-X that investigates whether time-aware financial knowledge graphs and retrieval-augmented semantic representations can improve deep reinforcement learning (DRL) for portfolio optimization.
 
-Introduced in our paper *"FinRL-X: An AI-Native Modular Infrastructure for Quantitative Trading"* ([arXiv:2603.21330](https://arxiv.org/abs/2603.21330)), FinRL-X succeeds the original [FinRL](https://github.com/AI4Finance-Foundation/FinRL) framework with a fully modernized architecture designed for the LLM and agentic AI era.
+Traditional DRL portfolio allocation primarily relies on numerical market observations, such as historical prices, returns, trading volumes, and technical indicators.
 
-> FinRL-X is **not just a library** — it is a full-stack trading platform engineered around modularity, reproducibility, and production-readiness, supporting everything from ML-based stock selection and professional backtesting to live brokerage execution.
+However, financial markets are also influenced by company relationships, industry events, regulatory disclosures, and evolving business risks.
 
-At its core is a **weight-centric architecture** — the target portfolio weight vector is the sole interface contract between strategy logic and downstream execution:
+FinGraph-RL integrates these heterogeneous information sources into a unified decision-making framework.
 
-$$w_t = \mathcal{R}_t\bigl(\mathcal{T}_t\bigl(\mathcal{A}_t\bigl(\mathcal{S}_t(\mathcal{X}_{\le t})\bigr)\bigr)\bigr)$$
+The current research focuses on five technology companies:
 
-where $\mathcal{S}$ denotes stock selection, $\mathcal{A}$ portfolio allocation, $\mathcal{T}$ timing adjustment, and $\mathcal{R}$ portfolio-level risk overlay. Each transformation is contract-preserving — you can swap any module (e.g. equal-weight $\to$ DRL allocator) without touching the rest of the pipeline, and the same weights flow identically through backtesting and live execution.
+- Apple (AAPL)
+- Amazon (AMZN)
+- Alphabet (GOOGL)
+- Microsoft (MSFT)
+- NVIDIA (NVDA)
+
+The system combines four feature channels:
+
+| Feature Channel | Information Source | Dimensions per Company |
+|---|---|---:|
+| Market | Historical prices and technical indicators | 106 |
+| SEC | SEC filing-derived features | 64 |
+| Dynamic KG | Temporal financial knowledge graph features | 149 |
+| Event-Driven LightRAG | Structural and semantic retrieval features | 45 |
+| **Total (M2)** | **Combined company observation** | **364** |
+
+For five companies, the expected M2 observation dimension is:
+
+\[
+5 \times 364 + 5 = 1825
+\]
+
+The additional five dimensions represent the portfolio-state variables in the current environment configuration.
+
+The actual observation dimension should be verified against `observation_space.shape`.
 
 ---
 
-<!-- FINRLDKG-EXTENSION-START -->
+## 2. Research Objectives
 
-## SEC-RAG + FinDKG Research Extension
+FinGraph-RL investigates three major research questions.
 
-This repository extends FinRL-X with:
+**RQ1 — Temporal Financial Knowledge Representation**
 
-- **SEC-RAG**: firm-level signals from SEC filings
-- **FinDKG**: temporal relational signals from a dynamic financial knowledge graph
+Can unified temporal financial knowledge graphs provide useful relational information beyond conventional market and SEC features?
 
-### Portfolio
+**RQ2 — Event-Driven Retrieval and Semantic Representations**
 
-- AAPL
-- MSFT
-- NVDA
-- AMZN
-- GOOGL
+Can event-driven graph retrieval and LLM-generated semantic representations provide additional information for portfolio allocation?
 
-### Four-Way Ablation
+**RQ3 — Evidence Quality and Decision Reliability**
 
-| Feature Set | Features per Company |
-|---|---:|
-| BASE | 9 technical |
-| BASE + SEC | 9 technical + 7 SEC = 16 |
-| BASE + FinDKG | 9 technical + 200 FinDKG = 209 |
-| BASE + SEC + FinDKG | 9 technical + 7 SEC + 200 FinDKG = 216 |
+How do knowledge graph quality, retrieval accuracy, temporal validity, and evidence grounding affect downstream DRL performance?
 
-### Protocol
+The long-term objective is to establish a traceable evaluation pipeline:
 
-- Train: 2018-01-08 to 2020-12-31
-- Held-out test: 2021-01-01 to 2022-12-30
-- Agents: A2C / PPO / DDPG
-- Seeds: 0,1,2,3,4
-- Training steps: 50,000
+**Knowledge Graph Quality → Retrieval Quality → Semantic Representation → Portfolio Decision Quality**
 
-### FinDKG Pipeline
+---
+
+## 3. System Architecture
+
+FinGraph-RL extends the original FinRL-X framework with a temporal financial knowledge graph and an Event-Driven LightRAG pipeline.
 
 ```text
-Released FinDKG temporal KG
-        |
-        v
-Weekly dynamic graphs
-        |
-        v
-KGTransformer
-        |
-        v
-200-d dynamic entity embeddings
-        |
-        v
-AAPL / MSFT / NVDA / AMZN / GOOGL
-        |
-        v
-Strict backward as-of daily merge
-        |
-        v
-FinRL-X state
-        |
-        v
-A2C / PPO / DDPG
-        |
-        v
-Daily portfolio weights
+                 Historical Financial Data
+                            |
+          +-----------------+-----------------+
+          |                 |                 |
+      Market Data       SEC Filings      Financial KG
+          |                 |                 |
+          v                 v                 v
+    Market Features    SEC Features   Unified Temporal KG
+        106D               64D               |
+                                          14,196 Nodes
+                                          19 Relations
+                                          224,593 Edges
+                                               |
+                                  +------------+------------+
+                                  |                         |
+                                  v                         v
+                           Dynamic KG Path          Event-Driven Path
+                                  |                         |
+                           Temporal KG Features      Event Trigger
+                                  |                         |
+                                 149D                Historical Evidence
+                                                            |
+                                                    Official LightRAG
+                                                            |
+                                                  Local / Global Retrieval
+                                                            |
+                                                  Merge + Deduplication
+                                                            |
+                                                  Evidence Chunk Selection
+                                                            |
+                                                       Qwen Summary
+                                                            |
+                                                        BGE-M3
+                                                            |
+                                                      1024D Embedding
+                                                            |
+                                                      Train-only PCA
+                                                            |
+                                                      16D Semantic
+                                                            |
+                                                  Structural 28D + Mask
+                                                            |
+                                                        RAG 45D
+                                                            |
+                                               Trading-Day Alignment
+                                                            |
+                     +--------------------------------------+
+                     |
+                     v
+              Feature Fusion
+                     |
+       Market + SEC + Dynamic KG + RAG
+                     |
+              364D per Company
+                     |
+              5 Companies + 5
+               Portfolio States
+                     |
+                     v
+             FinRL-X Observation
+                  1825D
+                     |
+              +------+------+
+              |      |      |
+             PPO    A2C    DDPG
+              |      |      |
+              +------+------+
+                     |
+               Portfolio Weights
+                     |
+               Backtesting
+                     |
+              Performance Analysis
 ```
 
-### Main Results
+The graph construction, evidence retrieval, semantic encoding, and portfolio learning stages are separated to support modular evaluation and ablation experiments.
 
-| Feature Set | Agent | Return | Sharpe | Max Drawdown |
-|---|:---:|---:|---:|---:|
-| BASE | A2C | -18.88% | -0.153 | -49.83% |
-| BASE | PPO | -23.61% | -0.230 | -48.15% |
-| BASE | DDPG | -31.41% | -0.341 | -53.14% |
-| BASE + SEC | A2C | -14.18% | -0.059 | -49.36% |
-| BASE + SEC | PPO | -21.63% | -0.187 | -49.06% |
-| BASE + SEC | DDPG | -34.48% | -0.388 | -55.92% |
-| BASE + FinDKG | A2C | -1.17% | 0.138 | -43.95% |
-| BASE + FinDKG | PPO | -6.20% | 0.094 | -49.12% |
-| BASE + FinDKG | DDPG | -21.86% | -0.189 | -49.82% |
-| BASE + SEC + FinDKG | A2C | +3.81% | 0.221 | -43.62% |
-| BASE + SEC + FinDKG | PPO | -8.42% | 0.038 | -45.48% |
-| BASE + SEC + FinDKG | DDPG | -9.09% | -0.007 | -43.18% |
+---
 
-### Main Finding
+## 4. Unified Temporal Financial Knowledge Graph
 
-FinDKG provides the most consistent incremental improvement in return and Sharpe across the five evaluated seeds.
+The Unified Temporal Financial Knowledge Graph integrates financial relationships and events from multiple sources.
 
-SEC features alone are more agent-dependent, but become strongly complementary to FinDKG for DDPG.
+The currently reported graph contains:
 
-See:
+| Component | Count |
+|---|---:|
+| Entities | 14,196 |
+| Relation Types | 19 |
+| Temporal Edges | 224,593 |
 
-[`docs/FINDKG_FOURWAY_EXPERIMENT.md`](docs/FINDKG_FOURWAY_EXPERIMENT.md)
+The graph represents financial entities and their time-dependent relationships.
 
-<!-- FINRLDKG-EXTENSION-END -->
+Rather than directly feeding raw graph nodes and edges into a neural network, FinGraph-RL transforms the graph into fixed-dimensional representations.
 
-## Architecture
+Two complementary processing paths are used.
 
-<div align="center">
-  <img src="https://github.com/AI4Finance-Foundation/FinRL-Trading/blob/master/figs/FinRL_X_Framework.png" width="880"/>
-</div>
+### 4.1 Dynamic KG Channel
 
-<br/>
+The original Dynamic KG processing pipeline converts temporal financial graph information into numerical features.
 
-| Layer | Role | Components |
-|:------|:-----|:-----------|
-| **Data** | Unified market data pipeline | FMP, Yahoo Finance, WRDS; LLM sentiment preprocessing; SQLite cache |
-| **Strategy** | Weight-centric signal generation | Stock selection, portfolio allocation, timing adjustment, risk overlay |
-| **Backtest** | Offline evaluation | `bt`-powered engine with multi-benchmark comparison and transaction costs |
-| **Execution** | Live/paper trading | Alpaca multi-account integration with pre-trade risk checks |
+The current baseline uses:
 
-```
-finrl-trading/
-├── src/
-│   ├── config/                     # ⚙️  Centralized configuration management
-│   │   └── settings.py             #     Pydantic-based settings + environment variables
-│   ├── data/                       # 🗄️  Data acquisition and processing
-│   │   ├── data_fetcher.py         #     Multi-source integration (Yahoo / FMP / WRDS)
-│   │   ├── data_processor.py       #     Feature engineering & data cleaning
-│   │   └── data_store.py           #     SQLite persistence with caching
-│   ├── backtest/                   # 📊  Backtesting engine
-│   │   └── backtest_engine.py      #     bt-powered engine with benchmark comparison
-│   ├── strategies/                 # 🤖  Trading strategies
-│   │   ├── base_strategy.py        #     Abstract strategy framework
-│   │   └── ml_strategy.py          #     Random Forest stock selection
-│   ├── trading/                    # 💰  Live trading execution
-│   │   ├── alpaca_manager.py       #     Alpaca API integration (multi-account)
-│   │   ├── trade_executor.py       #     Order management & risk controls
-│   │   └── performance_analyzer.py #     Real-time P&L tracking
-│   └── main.py                     # 🚀  CLI entry point
-├── examples/
-│   ├── FinRL_Full_Workflow.ipynb   # 📓  Complete workflow tutorial (start here!)
-│   └── README.md
-├── data/                           # Runtime data storage (gitignored)
-├── logs/                           # Application logs (gitignored)
+**149 dimensions per company per trading day.**
+
+This representation is independent of the total number of graph edges.
+
+### 4.2 Event-Driven LightRAG Channel
+
+The Event-Driven LightRAG pipeline constructs historical graph snapshots, retrieves relevant evidence, generates financial summaries, and converts them into numerical representations.
+
+The final RAG representation contains:
+
+- 28 structural dimensions
+- 16 semantic PCA dimensions
+- 1 semantic validity mask
+
+**Total: 45 dimensions per company.**
+
+---
+
+## 5. Event-Driven LightRAG
+
+### 5.1 Motivation
+
+The initial Historical LightRAG design used monthly snapshots.
+
+However, financial events do not occur exclusively at monthly boundaries.
+
+A fixed monthly retrieval schedule may therefore delay the incorporation of newly available financial information.
+
+FinGraph-RL introduces an Event-Driven Retrieval Scheduling approach.
+
+Event-Driven scheduling determines **when** historical graph snapshots should be updated.
+
+Local and Global retrieval determine **which evidence** should be retrieved from an already constructed graph.
+
+These are complementary stages rather than competing retrieval strategies.
+
+### 5.2 Event Trigger Planning
+
+The Event-Driven Planner considers financial knowledge graph updates and SEC filing events.
+
+In the initial experiment:
+
+| Stage | Count |
+|---|---:|
+| Recorded Event Jobs | 612 |
+| Candidate Event Jobs | 483 |
+| Selected Graph Snapshots | 25 |
+
+The 483 candidate jobs represent potential retrieval-update opportunities, not 483 completed graph snapshots.
+
+### 5.3 Pilot Snapshot Selection
+
+For the initial pipeline validation, 25 graph snapshots were selected across five companies.
+
+Each company contributes:
+
+- Four training snapshots from 2018–2020
+- One validation snapshot from 2021
+
+The selection prioritizes dates with higher numbers of newly observed KG events while favoring coverage across different months.
+
+| Company | Training Snapshots | Validation Snapshot |
+|---|---|---|
+| AAPL | 2018-08-06, 2018-09-17, 2019-01-07, 2019-02-04 | 2021-05-03 |
+| AMZN | 2018-03-19, 2018-11-19, 2018-12-17, 2020-02-03 | 2021-02-08 |
+| GOOGL | 2018-07-23, 2018-09-24, 2019-09-16, 2020-12-21 | 2021-01-11 |
+| MSFT | 2018-02-05, 2018-06-11, 2020-08-10, 2020-09-14 | 2021-05-03 |
+| NVDA | 2018-04-02, 2018-05-14, 2019-02-04, 2020-09-14 | 2021-12-06 |
+
+These 25 snapshots were selected primarily to validate the end-to-end integration pipeline.
+
+They do not constitute a comprehensive evaluation over all candidate events.
+
+---
+
+## 6. Historical Evidence Selection
+
+For each selected event date, the system retrieves company-relevant historical KG evidence.
+
+Evidence selection considers:
+
+- Target company
+- Historical snapshot date
+- Temporal availability restrictions
+- Configured evidence retrieval budgets
+
+The current LightRAG graph-generation setting allows up to 80 KG events per snapshot.
+
+Availability-time filtering is used to reduce future-information leakage.
+
+However, independent end-to-end point-in-time certification remains future work.
+
+**Important distinction:** SEC filings may trigger snapshot generation, but the current pilot graph-generation configuration uses `--sec-k 0`. Therefore, an SEC-triggered job does not necessarily include SEC document chunks in the constructed LightRAG graph.
+
+---
+
+## 7. Official LightRAG Graph Construction
+
+Selected historical evidence is used to construct a company-specific, time-dependent LightRAG graph and index.
+
+Each graph snapshot contains entities and relationships derived from eligible historical information.
+
+For example, the AAPL snapshot dated August 6, 2018 contains:
+
+- 58 graph nodes
+- 57 graph edges
+
+Graph construction occurs **before** Local and Global retrieval.
+
+The graph serves as a retrieval index and evidence source rather than a raw observation directly supplied to DRL.
+
+---
+
+## 8. Hybrid Retrieval: Local and Global
+
+Once the historical LightRAG graph is constructed, the system performs Hybrid Retrieval.
+
+### 8.1 Local Retrieval
+
+Local Retrieval emphasizes relevant entities and their neighboring relationships.
+
+Example: retrieving Apple-related entities associated with smartphone markets, regional markets, and other companies.
+
+### 8.2 Global Retrieval
+
+Global Retrieval emphasizes relationships and broader financial contexts.
+
+Example: identifying business-risk relationships involving Apple and related financial entities.
+
+### 8.3 Evidence Fusion
+
+The system merges and deduplicates Local and Global retrieval results.
+
+It subsequently retrieves source evidence chunks associated with the selected entities and relationships.
+
+Entity-related and relation-related evidence candidates are integrated using a round-robin selection strategy under a context budget.
+
+### 8.4 Actual Retrieval Example
+
+**AAPL — August 6, 2018**
+
+| Retrieval Stage | Entities | Relations |
+|---|---:|---:|
+| Local Retrieval | 40 | 57 |
+| Global Retrieval | 41 | 40 |
+| Merge + Deduplication | 55 | 57 |
+
+The constructed snapshot graph contains 58 nodes and 57 edges.
+
+The 55 retrieved entities and 57 retrieved relations represent the deduplicated retrieval result, not a newly constructed graph.
+
+**Evidence Chunk Processing**
+
+| Stage | Count |
+|---|---:|
+| Entity-related Candidate Chunks | 54 |
+| Additional Relation-related Candidate Chunks | 14 |
+| Total Candidate Chunks | 68 |
+| Selected Context Chunks | 20 |
+
+The final Qwen context contains 55 entities, 57 relations, and 20 selected evidence chunks.
+
+Document chunking occurs during LightRAG indexing. Retrieval subsequently identifies and selects previously indexed source chunks.
+
+---
+
+## 9. Qwen Semantic Representation
+
+After Hybrid Retrieval, the selected evidence context is provided to Qwen for historical financial summary generation.
+
+The summary is intended to capture relevant company relationships, business conditions, and potential financial risks supported by retrieved evidence.
+
+However, text cannot be directly supplied as a standard numerical DRL observation.
+
+Therefore, FinGraph-RL applies semantic encoding and dimensionality reduction.
+
+### 9.1 BGE-M3 Embedding
+
+Qwen-generated summaries are encoded using BGE-M3.
+
+The original semantic representation contains 1024 dimensions.
+
+### 9.2 PCA Dimensionality Reduction
+
+The semantic embeddings are transformed using PCA fitted only on training data.
+
+In the initial experiment:
+
+| Property | Value |
+|---|---:|
+| Unique Training Embeddings | 20 |
+| Numerical Rank | 19 |
+| PCA Components | 16 |
+
+The resulting semantic representation is 16-dimensional.
+
+Using training-only PCA reduces the risk of introducing information from the validation period into the fitted feature transformation.
+
+The small number of unique training embeddings remains a limitation requiring additional robustness evaluation.
+
+---
+
+## 10. RAG Structural and Semantic Features
+
+FinGraph-RL generates two complementary RAG feature channels.
+
+### 10.1 Structural Channel — 28D
+
+| Feature Group | Dimensions |
+|---|---:|
+| Impact, Risk, Confidence | 3 |
+| Corresponding Validity Masks | 3 |
+| Evidence Count, Relation Count, Diversity | 3 |
+| Retrieval Valid, Summary Present, Freshness | 3 |
+| Relation Distribution | 16 |
+| **Total** | **28** |
+
+Impact, Risk, and Confidence currently remain zero-valued with invalid masks because complete quote-level grounding has not yet been established.
+
+### 10.2 Semantic Channel — 17D
+
+| Component | Dimensions |
+|---|---:|
+| PCA-reduced Qwen Summary Embedding | 16 |
+| Semantic Validity Mask | 1 |
+| **Total** | **17** |
+
+Therefore:
+
+**28D Structural + 16D Semantic + 1D Mask = 45D RAG Features**
+
+---
+
+## 11. Trading-Day Feature Alignment
+
+Graph snapshots are aligned with historical trading dates.
+
+For each company and trading day, the system selects the most recent eligible snapshot within the configured validity window.
+
+The pilot allows snapshot features to be carried forward for up to 35 calendar days.
+
+Snapshots cannot be used before their corresponding availability dates.
+
+When no valid snapshot exists, RAG features are handled as missing or zero-valued inputs with associated validity information.
+
+### Pilot Coverage
+
+| Dataset | Valid Company-Days | Total Company-Days | Coverage |
+|---|---:|---:|---:|
+| Training | 457 | 3,780 | 12.09% |
+| Validation | Approximately 113 | 1,260 | 8.97% |
+
+Sparse snapshot coverage is a major limitation of the initial pilot.
+
+It is not yet established how model performance will change when a substantially larger portion of event-driven candidates is processed.
+
+---
+
+## 12. FinRL-X Integration
+
+FinGraph-RL integrates Market, SEC, Dynamic KG, and Event-Driven RAG features into the portfolio observation.
+
+### Model Configurations
+
+| Model | Components | Dimensions per Company |
+|---|---|---:|
+| M0 | Market + SEC + Dynamic KG | 319 |
+| M1 | M0 + Structural RAG | 347 |
+| M2 | M1 + Semantic PCA + Mask | 364 |
+
+The portfolio uses five companies.
+
+With five additional portfolio-state variables, the expected M2 observation has 1,825 dimensions.
+
+The system evaluates portfolio allocation using PPO, A2C, and DDPG.
+
+---
+
+## 13. Preliminary Experimental Results
+
+### Experimental Configuration
+
+| Setting | Value |
+|---|---|
+| Training | 2018–2020 |
+| Validation | 2021 |
+| Portfolio | Five technology stocks |
+| Algorithms | PPO, A2C, DDPG |
+| Initial Reported Seed | 42 |
+| Training Timesteps | 100,000 |
+
+### Validation Final Multiple
+
+| Algorithm | M0 | M1 | M2 | M2 vs. M0 |
+|---|---:|---:|---:|---:|
+| PPO | 1.5992 | 1.5380 | **1.6728** | +4.60% |
+| A2C | 1.5033 | 1.5212 | **1.9223** | +27.88% |
+| DDPG | 1.3103 | 1.4135 | **1.4562** | +11.14% |
+
+In this preliminary single-seed validation, M2 achieves a higher final asset multiple than M0 and M1 across all three evaluated algorithms.
+
+However, these findings do not establish statistical significance or demonstrate that semantic embeddings independently caused the improvement.
+
+The A2C configuration also exhibits higher volatility and maximum drawdown, while DDPG introduces substantial turnover and transaction-cost concerns.
+
+Further multi-seed experiments and controlled ablations are required.
+
+---
+
+## 14. Knowledge Graph Quality and QA Evaluation
+
+An important ongoing research direction is the independent evaluation of knowledge graph quality and retrieval correctness.
+
+Downstream portfolio performance alone cannot establish whether a knowledge graph contains accurate financial relationships or whether RAG retrieves the correct evidence.
+
+The evaluation framework therefore considers multiple levels.
+
+### 14.1 KG Quality
+
+- Structural consistency
+- Duplicate and invalid relations
+- Temporal validity
+- Semantic correctness
+- Evidence provenance
+
+### 14.2 Triple-Based Question Answering
+
+Given a knowledge graph triple:
+
+\[
+(h,r,t)
+\]
+
+Three question-answering tasks are considered:
+
+| Task | Input | Prediction Target |
+|---|---|---|
+| Tail Prediction | Head + Relation | Tail |
+| Relation Prediction | Head + Tail | Relation |
+| Head Prediction | Relation + Tail | Head |
+
+These correspond to HR → T, HT → R, and RT → H.
+
+### 14.3 Retrieval and Answer Evaluation
+
+Potential evaluation metrics include:
+
+- QA Exact-Match Accuracy
+- Evidence Recall@K
+- Hits@K, where ranked candidate predictions are available
+- Temporal Validity Rate
+- Unsupported Answer Rate
+- Error categories for KG, retrieval, and LLM failures
+
+KG-derived QA evaluation measures whether the system can recover recorded graph information.
+
+It does not independently establish the factual accuracy of every KG triple against external financial sources.
+
+A complete evaluation loop should connect:
+
+**KG Quality → Evidence Retrieval → Qwen Answer → QA Metrics → Error Analysis**
+
+The QA benchmark and grounding evaluation remain active development and validation tasks, rather than completed claims of verified accuracy.
+
+---
+
+## 15. Repository Structure
+
+```text
+FinGraph-RL/
+├── src/                         # Original FinRL-X framework
+├── sec_rag_drl/                 # SEC-RAG + DRL integration
+├── rag/                         # SEC retrieval and processing
+├── kg/                          # Financial KG construction and features
+├── unified_event_memory/        # Unified temporal KG and FinRL-X extensions
+├── experiments/
+│   └── light_rag_dynamic_kg/    # Event-Driven LightRAG experiments
+│       └── evaluation/         # KG/RAG QA evaluation
+├── scripts/                     # Historical KG and research utilities
+├── docs/                        # Research and framework documentation
+├── examples/                    # Original FinRL-X examples
+├── figs/                        # Framework figures
 ├── requirements.txt
-└── setup.py
+├── setup.py
+├── LICENSE
+└── README.md
 ```
+
+### Important Research Entry Points
+
+| Component | Script |
+|---|---|
+| Unified Temporal KG | `unified_event_memory/build_unified_kg_v3.py` |
+| Event-Driven Planner | `experiments/light_rag_dynamic_kg/plan_event_driven_v3.py` |
+| Pilot Snapshot Batch | `experiments/light_rag_dynamic_kg/run_event_m2_batch.py` |
+| Official LightRAG | `experiments/light_rag_dynamic_kg/run_official_lightrag.py` |
+| Feature Alignment | `experiments/light_rag_dynamic_kg/build_event_m2_aligned.py` |
+| Multi-DRL Training | `experiments/light_rag_dynamic_kg/train_finrlx_multidrl.py` |
+| KG QA | `experiments/light_rag_dynamic_kg/evaluation/run_kg_qa.py` |
+| Official KG QA | `experiments/light_rag_dynamic_kg/evaluation/run_official_kg_qa_v2.py` |
+| Integrated Financial QA | `experiments/light_rag_dynamic_kg/evaluation/run_integrated_financial_qa.py` |
+
+These are research entry points, not a verified end-to-end one-command installation procedure.
+
+The complete research environment requires corresponding historical datasets, model dependencies, and locally available generated artifacts.
 
 ---
 
-## Strategies
+## 16. Reproducibility
 
-FinRL-X implements three use cases from the paper, each demonstrating different compositions of the weight-centric pipeline.
+This repository contains the research code for FinGraph-RL and the original FinRL-X framework.
 
-### Use Case 1 — Portfolio Allocation Paradigms
+Some historical datasets, trained weights, cached graph indices, and generated embeddings may be excluded from Git due to size or reproducibility considerations.
 
-Compares heterogeneous allocation methods under a unified interface:
+The recommended reproduction sequence is:
 
-| Method | Type | Description |
-|:-------|:-----|:------------|
-| Equal Weight | Classical | Uniform 1/N allocation |
-| Mean-Variance | Classical | Markowitz optimization |
-| Minimum Variance | Classical | Minimize portfolio volatility |
-| DRL Allocator | Learning | PPO/SAC continuous weight generation |
-| KAMA Timing | Signal | Kaufman adaptive trend overlay |
+1. Prepare historical Market, SEC, and KG datasets.
+2. Construct or load the Unified Temporal KG.
+3. Generate Event-Driven candidate jobs.
+4. Select historical snapshot dates.
+5. Build Official LightRAG graph snapshots.
+6. Execute Hybrid Retrieval and Qwen summarization.
+7. Generate BGE-M3 embeddings and train-only PCA features.
+8. Align RAG features with trading dates.
+9. Construct FinRL-X M0/M1/M2 observations.
+10. Train and evaluate PPO, A2C, and DDPG.
+11. Evaluate KG quality, retrieval accuracy, and QA behavior.
 
-All methods output the same weight vector, making them directly composable with timing and risk overlays.
-
-<div align="center">
-  <img src="https://github.com/AI4Finance-Foundation/FinRL-Trading/blob/master/figs/DRL_Timing_Backtest.png" width="900"/>
-</div>
-
-### Use Case 2 — Rolling Stock Selection + DRL
-
-Quarterly selection of top-25% NASDAQ-100 stocks via ML fundamental scoring, combined with DRL-based portfolio allocation. Strict no-lookahead semantics prevent data leakage.
-
-### Use Case 3 — Adaptive Multi-Asset Rotation
-
-A research-grade, walk-forward-safe rotation strategy with daily risk monitoring:
-
-| Component | Detail |
-|:----------|:-------|
-| **Asset Groups** | Growth Tech, Real Assets, Defensive — max 2 active per week |
-| **Group Selection** | Information Ratio relative to QQQ benchmark |
-| **Intra-Group Ranking** | Residual momentum with robust Z-score exception handling |
-| **Market Regime** | Slow regime (26-week trend + VIX) + Fast Risk-Off (3-day shock) |
-| **Risk Controls** | Trailing stop-loss, absolute stop-loss, cooldown periods |
-| **Rebalance** | Weekly (full) + daily monitoring (fast risk-off, stop-loss adjustments) |
-
-```bash
-# Run the adaptive rotation backtest
-./deploy.sh --strategy adaptive_rotation --mode backtest --start 2023-01-01 --end 2024-12-31
-
-# Paper trade with Alpaca
-./deploy.sh --strategy adaptive_rotation --mode paper --dry-run
-```
+Exact runtime requirements and end-to-end reproduction commands should be validated against the corresponding experiment configuration before use.
 
 ---
 
-## Results
+## 17. Research Limitations
 
-### Historical Backtest (Jan 2018 – Oct 2025)
+Current limitations include:
 
-<div align="center">
-  <img src="https://github.com/AI4Finance-Foundation/FinRL-Trading/blob/master/figs/All_Backtests_v2.png" width="900"/>
-</div>
+- Sparse Event-Driven RAG snapshot coverage
+- Non-random initial snapshot selection
+- Limited unique semantic embeddings for PCA estimation
+- Incomplete quote-level grounding for financial scoring
+- Preliminary single-seed performance results
+- Incomplete independent point-in-time auditing
+- Potential effects of missing-data patterns and feature selection
+- Insufficient evidence to establish causal performance improvements
 
-| Metric | Rolling Strategy | Adaptive Rotation | QQQ | SPY |
-|:-------|:---:|:---:|:---:|:---:|
-| Cumulative Return | 5.98x | 4.80x | 4.02x | 2.80x |
-| Annualized Return | 25.85% | 22.32% | 19.56% | 14.14% |
-| Annualized Volatility | 27.85% | 20.30% | 24.20% | 19.61% |
-| **Sharpe Ratio** | 0.93 | **1.10** | 0.81 | 0.72 |
-| Max Drawdown | -38.95% | **-21.46%** | -35.12% | -33.72% |
-| **Calmar Ratio** | 0.66 | **1.04** | 0.56 | 0.42 |
-| Win Rate | 54.36% | 54.77% | 56.25% | 55.28% |
-
-### Paper Trading (Oct 2025 – Mar 2026)
-
-<div align="center">
-  <img src="https://github.com/AI4Finance-Foundation/FinRL-Trading/blob/master/figs/Paper_Trading.png" width="900"/>
-</div>
-
-Ensemble of Rolling Selection + Adaptive Rotation deployed on Alpaca paper trading:
-
-| Metric | Strategy | SPY | QQQ |
-|:-------|:---:|:---:|:---:|
-| Cumulative Return | **1.20x** | 0.97x | 0.95x |
-| Total Return | **+19.76%** | -2.51% | -4.79% |
-| Annualized Return | **62.16%** | -6.60% | -12.32% |
-| Annualized Volatility | 31.75% | 11.96% | 16.79% |
-| **Sharpe Ratio** | **1.96** | -0.55 | -0.73 |
-| Max Drawdown | -12.22% | -5.35% | -7.88% |
-| **Calmar Ratio** | **5.09** | -1.23 | -1.56 |
-| Win Rate | **64.89%** | 52.13% | 54.02% |
-
-### Dynamic Sector Rotation
-
-<div align="center">
-  <img src="https://github.com/AI4Finance-Foundation/FinRL-Trading/blob/master/figs/Sector_Rotation_Standalone.png" width="900"/>
-</div>
-
-The Adaptive Rotation strategy dynamically shifts capital across three asset groups — **Growth Tech**, **Real Assets**, and **Defensive** — based on market regime signals. During risk-on regimes, the portfolio tilts toward high-momentum growth and commodity plays; when regime detection flags risk-off or fast risk-off conditions, capital rotates into bonds and utilities with an automatic cash buffer. Weekly rebalancing is complemented by daily stop-loss and fast risk-off monitoring, enabling rapid de-risking without waiting for the next scheduled rebalance.
+The project is an ongoing research implementation rather than a validated production trading system.
 
 ---
 
-## Quick Start
+## 18. Future Work
 
-### Option A — One-Command Deploy
+The next research stages focus on:
 
-`deploy.sh` handles everything automatically: dependency check, data download, and strategy execution.
+**Expanded Event-Driven Coverage**
 
-```bash
-git clone https://github.com/AI4Finance-Foundation/FinRL-Trading.git
-cd FinRL-Trading
+Evaluate additional candidate event dates and investigate how snapshot coverage influences downstream DRL performance.
 
-# Backtest (downloads data + runs strategy)
-./deploy.sh --strategy adaptive_rotation --mode backtest
+**KG Quality Benchmark**
 
-# Custom date range
-./deploy.sh --strategy adaptive_rotation --mode backtest --start 2020-01-01 --end 2025-12-31
+Assess graph consistency, provenance, financial relationship accuracy, and historical temporal validity.
 
-# Single date signal
-./deploy.sh --strategy adaptive_rotation --mode single --date 2024-12-31
+**RAG Question Answering**
 
-# Paper trading (requires Alpaca credentials in .env)
-./deploy.sh --strategy adaptive_rotation --mode paper --dry-run   # preview
-./deploy.sh --strategy adaptive_rotation --mode paper              # execute
+Evaluate triple-based QA tasks, evidence retrieval accuracy, and unsupported-answer behavior.
 
-# See all options
-./deploy.sh --help
-```
+**Controlled Ablation Studies**
 
-### Option B — Manual Setup with venv
+Separate the effects of event-driven scheduling, structural retrieval features, and semantic representations.
 
-```bash
-# 1. Clone
-git clone https://github.com/AI4Finance-Foundation/FinRL-Trading.git
-cd FinRL-Trading
+**Multi-Seed Robustness**
 
-# 2. Create and activate virtual environment
-python3 -m venv venv
-source venv/bin/activate        # Linux / macOS
-# venv\Scripts\activate         # Windows
+Evaluate return, Sharpe Ratio, volatility, maximum drawdown, turnover, and transaction costs over multiple random seeds.
 
-# 3. Install dependencies
-pip install -r requirements.txt
+**Evidence Grounding**
 
-# 4. (Optional) Configure API keys for paper trading
-cp .env.example .env
-# Edit .env — set APCA_API_KEY, APCA_API_SECRET, etc.
-```
-
-#### Running Strategies via Python
-
-```bash
-# Backtest — Adaptive Rotation (2023-01-01 to 2024-12-31)
-python src/strategies/run_adaptive_rotation_strategy.py \
-    --config src/strategies/AdaptiveRotationConf_v1.2.1.yaml \
-    --backtest --start 2023-01-01 --end 2024-12-31
-
-# Single date signal
-python src/strategies/run_adaptive_rotation_strategy.py \
-    --config src/strategies/AdaptiveRotationConf_v1.2.1.yaml \
-    --date 2024-12-31
-
-# Full workflow tutorial (Jupyter)
-jupyter notebook examples/FinRL_Full_Workflow.ipynb
-```
-
-> **Note:** Data files (`{SYMBOL}_daily.csv`) must exist under `data/fmp_daily/` before running.
-> `deploy.sh` downloads them automatically; for manual setup, either run `deploy.sh --strategy adaptive_rotation --mode backtest` once, or prepare CSV files with columns `date,open,high,low,close,volume`.
-
-### Configuration
-
-```bash
-cp .env.example .env
-```
-
-```bash
-# Alpaca (required for paper/live trading)
-APCA_API_KEY=your_key
-APCA_API_SECRET=your_secret
-APCA_BASE_URL=https://paper-api.alpaca.markets
-
-# Data source (optional; Yahoo Finance is the free default)
-FMP_API_KEY=your_fmp_key
-```
-
-### Python API
-
-```python
-# Data
-from src.data.data_fetcher import get_data_manager
-manager = get_data_manager()
-prices = manager.get_price_data(['AAPL', 'MSFT'], '2020-01-01', '2024-12-31')
-
-# Strategy
-from src.strategies.ml_strategy import MLStockSelectorStrategy
-strategy = MLStockSelectorStrategy(config)
-result = strategy.generate_weights(data)
-
-# Backtest
-from src.backtest.backtest_engine import BacktestEngine, BacktestConfig
-engine = BacktestEngine(BacktestConfig(start_date='2020-01-01', end_date='2024-12-31'))
-result = engine.run_backtest("My Strategy", weights, prices)
-
-# Live trade
-from src.trading.alpaca_manager import create_alpaca_account_from_env, AlpacaManager
-alpaca = AlpacaManager([create_alpaca_account_from_env()])
-alpaca.execute_portfolio_rebalance(target_weights={'AAPL': 0.3, 'MSFT': 0.7})
-```
+Improve claim-level and quote-level attribution for LLM-generated financial analysis.
 
 ---
 
-## Evolution from FinRL
+## 19. Foundation and Acknowledgments
 
-| | FinRL (2020) | FinRL-X (2026) |
-|:---|:---|:---|
-| **Paradigm** | DRL-only | AI-Native (ML + DRL + LLM-ready) |
-| **Architecture** | Coupled monolith | Decoupled modular layers |
-| **Interface** | Gym state/action spaces | Weight-centric contract |
-| **Data** | 14 manual processors | Auto-select: Yahoo / FMP / WRDS |
-| **Backtesting** | Hand-rolled loops | `bt` engine + multi-benchmark |
-| **Live Trading** | Basic Alpaca | Multi-account + risk controls |
-| **Config** | `config.py` | Pydantic + `.env` |
-| **Paper** | [arXiv:2011.09607](https://arxiv.org/abs/2011.09607) | [arXiv:2603.21330](https://arxiv.org/abs/2603.21330) |
+FinGraph-RL is a research extension built upon the open-source FinRL-X / FinRL-Trading framework.
 
-### Migration from FinRL
+The original FinRL-X repository is maintained by the AI4Finance Foundation:
 
-```
-FinRL                                →  FinRL-X
-─────────────────────────────────────────────────────────────
-finrl/meta/data_processor.py         →  src/data/data_fetcher.py
-finrl/train.py                       →  strategy.generate_weights()
-finrl/trade.py                       →  TradeExecutor.execute_portfolio_rebalance()
-config.py + config_tickers.py        →  src/config/settings.py (Pydantic + .env)
-gym.Env subclassing                  →  BaseStrategy.generate_weights()
-```
+[AI4Finance-Foundation / FinRL-Trading](https://github.com/AI4Finance-Foundation/FinRL-Trading)
+
+The project also builds upon concepts from:
+
+- Financial Knowledge Graph research
+- Temporal Knowledge Graph representation learning
+- Retrieval-Augmented Generation
+- LightRAG
+- Financial LLM reasoning and semantic embeddings
+- Deep Reinforcement Learning for portfolio allocation
+
+Original upstream contributions and third-party components remain subject to their respective licenses and attribution requirements.
+
+See the repository [LICENSE](LICENSE) and upstream documentation for applicable terms.
 
 ---
 
-## Comparison with Existing Platforms
+## 20. Research Status
 
-| Feature | FinRL-X | [Qlib](https://github.com/microsoft/qlib) | [TradingAgents](https://github.com/TauricResearch/TradingAgents) | [Zipline](https://github.com/quantopian/zipline)/[Backtrader](https://github.com/mementum/backtrader) | [QuantConnect Lean](https://github.com/QuantConnect/Lean) |
-|:--------|:-------:|:----:|:-------------:|:------------------:|:-----------------:|
-| Primary Orientation | End-to-End System | ML Research | Agent-Based Trading | Backtesting | End-to-End Platform |
-| Broker Integration | Yes | - | - | - | Yes |
-| Deployment-Consistent Interface | Yes | - | - | - | Partial |
-| Reinforcement Learning Support | Yes | Limited | Yes | - | Partial |
-| Modular Strategy Pipeline | Yes | - | - | - | Partial |
-| Portfolio-Level Risk Overlay | Yes | - | - | - | Partial |
-| Open Source License | Apache 2.0 | MIT | Apache 2.0 | Apache 2.0 | Apache 2.0 |
+**Status: Active Research and Experimental Development**
 
----
+Current progress includes:
 
-## Contributing
+- Unified Temporal Financial KG construction
+- Event-Driven snapshot planning
+- Initial Official LightRAG integration
+- Structural and semantic feature generation
+- Trading-day feature alignment
+- FinRL-X M0/M1/M2 integration
+- Preliminary PPO/A2C/DDPG validation
+- Development of KG quality and QA evaluation
 
-```bash
-git checkout -b feature/your-feature
-pip install -r requirements.txt
-# make changes, add tests
-git commit -m "Add: your feature"
-git push origin feature/your-feature
-# open a Pull Request
-```
-
-Adding a custom strategy:
-
-```python
-from src.strategies.base_strategy import BaseStrategy, StrategyConfig, StrategyResult
-
-class MyStrategy(BaseStrategy):
-    def generate_weights(self, data, **kwargs) -> StrategyResult:
-        # your alpha logic — return portfolio weights
-        pass
-```
-
----
-
-## Citation
-
-```bibtex
-@inproceedings{yang2026finrlx,
-  title     = {FinRL-X: An AI-Native Modular Infrastructure for Quantitative Trading},
-  author    = {Yang, Hongyang and Zhang, Boyu and She, Yang and Liao, Xinyu and Zhang, Xiaoli},
-  booktitle = {Proceedings of the 2nd International Workshop on Decision Making and Optimization in Financial Technologies (DMO-FinTech)},
-  year      = {2026},
-  note      = {Workshop at PAKDD 2026}
-}
-```
-
-## License
-
-Apache License 2.0 — see [LICENSE](LICENSE).
-
-## Disclaimer
-
-This software is for **educational and research purposes only**. Not financial advice. Always consult qualified professionals before making investment decisions. Past performance does not guarantee future results.
-
----
-
-<div align="center">
-
-**[AI4Finance Foundation](https://github.com/AI4Finance-Foundation)**
-
-<img src="https://github.com/AI4Finance-Foundation/FinGPT/assets/31713746/e0371951-1ce1-488e-aa25-0992dafcc139" width="200"/>
-
-</div>
+**FinGraph-RL aims to investigate whether historically grounded financial graph evidence can provide reliable, measurable improvements to reinforcement-learning-based portfolio decisions.**
