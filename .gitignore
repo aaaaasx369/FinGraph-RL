@@ -229,3 +229,14 @@ external/FinDKG-FinRL-Train2020/result/
 
 __pycache__/
 *.pyc
+
+# Research cleanup
+__pycache__/
+*.py[cod]
+*.bak
+*.bak_*
+*.before_*.py
+*_before_*.py
+.venv*/
+**/outputs/
+**/checkpoints/
