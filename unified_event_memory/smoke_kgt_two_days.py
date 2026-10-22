@@ -178,7 +178,33 @@ try:
     for step, (day, events) in enumerate(batches, 1):
         graph = loader.graph_from_events(day, events)
 
-        before_time = node_latest_event_time.clone()
+        # Observe only time-state entries associated with
+        # the current event edges. Avoid cloning the full
+        # 14,196 x 14,197 x 2 GPU tensor.
+        src_local, dst_local = graph.edges()
+
+        src_global = graph.ndata[dgl.NID][src_local]
+        dst_global = graph.ndata[dgl.NID][dst_local]
+
+        pair_indices = torch.stack(
+            [src_global, dst_global],
+            dim=1
+        ).unique(dim=0)
+
+        h = pair_indices[:, 0].long().to(device)
+        t = pair_indices[:, 1].long().to(device)
+
+        before_forward = (
+            node_latest_event_time[t, h, 0]
+            .detach()
+            .clone()
+        )
+
+        before_reverse = (
+            node_latest_event_time[h, t, 1]
+            .detach()
+            .clone()
+        )
 
         with torch.no_grad():
             next_entity, next_relation = updater.forward(
@@ -191,15 +217,19 @@ try:
                 device=device,
             )
 
+        after_forward = node_latest_event_time[t, h, 0]
+        after_reverse = node_latest_event_time[h, t, 1]
+
         changed_time = int(
-            (node_latest_event_time != before_time).sum().item()
+            (after_forward != before_forward).sum().item()
+            + (after_reverse != before_reverse).sum().item()
         )
 
         changed_entity = int(
             (
                 next_entity.structural
                 != previous_entity.structural
-            ).any(dim=(1, 2)).sum().item()
+            ).any(dim=2).any(dim=1).sum().item()
         )
 
         print("=" * 65)

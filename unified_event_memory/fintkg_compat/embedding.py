@@ -159,11 +159,11 @@ class EmbeddingUpdater(nn.Module):
         updated_structural = dynamic_relation_emb.structural
         if batch_structural_dynamic_relation_emb is not None:
             updated_structural = dynamic_relation_emb.structural.clone()
-            updated_structural[batch_G_uniq_rel] = batch_structural_dynamic_relation_emb.cpu()
+            updated_structural[batch_G_uniq_rel.cpu()] = batch_structural_dynamic_relation_emb.cpu()
         updated_temporal = dynamic_relation_emb.temporal
         if batch_temporal_dynamic_relation_emb is not None:
             updated_temporal = dynamic_relation_emb.temporal.clone()
-            updated_temporal[batch_G_uniq_rel] = batch_temporal_dynamic_relation_emb.cpu()
+            updated_temporal[batch_G_uniq_rel.cpu()] = batch_temporal_dynamic_relation_emb.cpu()
 
         updated_dynamic_relation_emb = MultiAspectEmbedding(structural=updated_structural, temporal=updated_temporal)
 
